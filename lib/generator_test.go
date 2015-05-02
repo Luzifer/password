@@ -4,24 +4,24 @@ import "testing"
 
 func TestInsecurePasswords(t *testing.T) {
 	passwords := map[string]string{
-		"8452028337962356": "Password with only numeric characters was accepted.",
-		"adfgjadrgdagasdf": "Password with only lowercase characters was accepted.",
-		"ASEFSTDHQAEGFADF": "Password with only uppercase characters was accepted.",
-		"135fach74nc94bd6": "Password without uppercase characters was accepted.",
-		"235JGOA0YTVKS46S": "Password without lowercase characters was accepted.",
+		`8452028337962356`: "Password with only numeric characters was accepted.",
+		`adfgjadrgdagasdf`: "Password with only lowercase characters was accepted.",
+		`ASEFSTDHQAEGFADF`: "Password with only uppercase characters was accepted.",
+		`135fach74nc94bd6`: "Password without uppercase characters was accepted.",
+		`235JGOA0YTVKS46S`: "Password without lowercase characters was accepted.",
 
-		"cKTn5mQXfasdS6qy": "Password with pattern asd was accepted.",
-		"cKTn5mQXfdsaS6qy": "Password with pattern dsa was accepted.",
-		"cKTn5mQXf345S6qy": "Password with pattern 345 was accepted.",
-		"cKTn5mQXf987S6qy": "Password with pattern 987 was accepted.",
-		"cKTn5mQXfabcS6qy": "Password with pattern abc was accepted.",
-		"cKTn5mQXfcbaS6qy": "Password with pattern cba was accepted.",
-		"cKTn5mQXfABCS6qy": "Password with pattern ABC was accepted.",
-		"cKTn5mQXfONMS6qy": "Password with pattern ONM was accepted.",
+		`cKTn5mQXfasdS6qy`: "Password with pattern asd was accepted.",
+		`cKTn5mQXfdsaS6qy`: "Password with pattern dsa was accepted.",
+		`cKTn5mQXf345S6qy`: "Password with pattern 345 was accepted.",
+		`cKTn5mQXf987S6qy`: "Password with pattern 987 was accepted.",
+		`cKTn5mQXfabcS6qy`: "Password with pattern abc was accepted.",
+		`cKTn5mQXfcbaS6qy`: "Password with pattern cba was accepted.",
+		`cKTn5mQXfABCS6qy`: "Password with pattern ABC was accepted.",
+		`cKTn5mQXfONMS6qy`: "Password with pattern ONM was accepted.",
 
-		"Gncj5zzK29Dvx92h": "Password with character repetition was accepted",
-		"Gncj5%%K29Dvx92h": "Password with character repetition was accepted",
-		"Gncj55%K29Dvx92h": "Password with character repetition was accepted",
+		`Gncj5zzK29Dvx92h`: "Password with character repetition was accepted",
+		`Gncj5%%K29Dvx92h`: "Password with character repetition was accepted",
+		`Gncj55%K29Dvx92h`: "Password with character repetition was accepted",
 	}
 
 	for password, errorMessage := range passwords {
@@ -33,11 +33,11 @@ func TestInsecurePasswords(t *testing.T) {
 
 func TestSecurePasswords(t *testing.T) {
 	passwords := []string{
-		"6e1GZ6V2empWAky5Z13a",
-		"DLHZA2zfWor1XUoJYvFR",
-		"sMf3uNf2E1pxPFMymah5",
-		"prb4tX1vtyVL7R316dKU",
-		"7bWc9C1ciL62h5u26Z9g",
+		`6e1GZ6V2empWAky5Z13a`,
+		`DLHZA2zfWor1XUoJYvFR`,
+		`sMf3uNf2E1pxPFMymah5`,
+		`prb4tX1vtyVL7R316dKU`,
+		`7bWc9C1ciL62h5u26Z9g`,
 	}
 
 	for _, password := range passwords {
@@ -49,11 +49,11 @@ func TestSecurePasswords(t *testing.T) {
 
 func TestPasswordWithoutSpecialCharaterFail(t *testing.T) {
 	passwords := []string{
-		"6e1GZ6V2empWAky5Z13a",
-		"DLHZA2zfWor1XUoJYvFR",
-		"sMf3uNf2E1pxPFMymah5",
-		"prb4tX1vtyVL7R316dKU",
-		"7bWc9C1ciL62h5u26Z9g",
+		`6e1GZ6V2empWAky5Z13a`,
+		`DLHZA2zfWor1XUoJYvFR`,
+		`sMf3uNf2E1pxPFMymah5`,
+		`prb4tX1vtyVL7R316dKU`,
+		`7bWc9C1ciL62h5u26Z9g`,
 	}
 
 	for _, password := range passwords {
