@@ -1,4 +1,12 @@
 
+1.0.2 / 2015-05-03
+==================
+
+  * Fix: Ensured minimal length of passwords
+  * Switched to https protocol
+  * Added additional insecure password test
+  * Added API documentation to README
+
 1.0.1 / 2015-05-02
 ==================
 
