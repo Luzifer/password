@@ -10,7 +10,7 @@ My service [pwd.knut.me](http://pwd.knut.me/) is powered by this API and will pr
 
 ### Via CLI
 
-1. Download the compiled binary from GoBuilder.me and unzip the package
+1. Download the compiled binary from [GoBuilder.me](https://gobuilder.me/github.com/Luzifer/password) and unzip the package
 2. Generate your password:
 
     ```bash
@@ -27,11 +27,41 @@ My service [pwd.knut.me](http://pwd.knut.me/) is powered by this API and will pr
 
     # ./password get
     Vzupi4IaPbXmSQEX9A4e
+
+    # ./password get -l 32 -s
+    }d.sks(4J$2G]x52=k)WAN{M68LxEg}%
     ```
 
 ### Via API
 
-TBD
+- `/v1/getPassword` - Retrieve a password from the API
+  - `length=20` - Specify the length of the password to generate
+  - `special=false` - Set to `true` to enable special characters
+
+#### Self-Hosted
+
+1. Download the compiled binary from [GoBuilder.me](https://gobuilder.me/github.com/Luzifer/password) and unzip the package
+2. Run the API server:
+
+    ```bash
+    # ./password serve -h
+    NAME:
+      serve - start an API server to request passwords
+
+    USAGE:
+      command serve [command options] [arguments...]
+
+    OPTIONS:
+      --port "3000"	port to listen on
+    ```
+3. Request your password using `http://localhost:3000/v1/getPassword?length=20&special=true`
+
+#### Hosted
+
+```bash
+# curl http://password.hub.luzifer.io/v1/getPassword?length=20&special=true
+0M4L-1[lT:@2&7,p,o-;
+```
 
 ## Benchmark / Test
 
