@@ -9,6 +9,7 @@ func TestInsecurePasswords(t *testing.T) {
 		`ASEFSTDHQAEGFADF`: "Password with only uppercase characters was accepted.",
 		`135fach74nc94bd6`: "Password without uppercase characters was accepted.",
 		`235JGOA0YTVKS46S`: "Password without lowercase characters was accepted.",
+		`sdgAFfgADTSgafoa`: "Password without numeric characters was accepted",
 
 		`cKTn5mQXfasdS6qy`: "Password with pattern asd was accepted.",
 		`cKTn5mQXfdsaS6qy`: "Password with pattern dsa was accepted.",
