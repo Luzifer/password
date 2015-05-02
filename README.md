@@ -59,7 +59,7 @@ My service [pwd.knut.me](http://pwd.knut.me/) is powered by this API and will pr
 #### Hosted
 
 ```bash
-# curl http://password.hub.luzifer.io/v1/getPassword?length=20&special=true
+# curl https://password.hub.luzifer.io/v1/getPassword?length=20&special=true
 0M4L-1[lT:@2&7,p,o-;
 ```
 
