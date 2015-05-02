@@ -65,6 +65,11 @@ func startAPIServer(c *cli.Context) {
 }
 
 func printPassword(c *cli.Context) {
+	if c.Int("length") < 5 {
+		fmt.Println("Passwords with fewer than 5 characters are too insecure.")
+		os.Exit(1)
+	}
+
 	fmt.Println(pwd.GeneratePassword(c.Int("length"), c.Bool("special")))
 }
 
@@ -75,8 +80,8 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 	}
 	special := r.URL.Query().Get("special") == "true"
 
-	if length > 128 {
-		http.Error(res, "Please do not use length with more than 128 characters!", http.StatusNotAcceptable)
+	if length > 128 || length < 5 {
+		http.Error(res, "Please do not use length with more than 128 or fewer than 5 characters!", http.StatusNotAcceptable)
 		return
 	}
 
