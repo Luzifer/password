@@ -80,6 +80,36 @@ func TestSecurePasswordWithSpecialCharacter(t *testing.T) {
 	}
 }
 
+func TestPasswordGeneration(t *testing.T) {
+	password, _ := NewSecurePassword().GeneratePassword(20, false)
+
+	if len(password) != 20 {
+		t.Error("Password did not match requested length")
+	}
+
+	if !NewSecurePassword().CheckPasswordSecurity(password, false) {
+		t.Error("Password did not pass security test")
+	}
+
+	if NewSecurePassword().CheckPasswordSecurity(password, true) {
+		t.Error("Password without special characters passed security test for passwords with special characters")
+	}
+
+	password, _ = NewSecurePassword().GeneratePassword(32, true)
+
+	if len(password) != 32 {
+		t.Error("Password did not match requested length")
+	}
+
+	if !NewSecurePassword().CheckPasswordSecurity(password, false) {
+		t.Error("Password did not pass security test for passwords without special characters")
+	}
+
+	if !NewSecurePassword().CheckPasswordSecurity(password, true) {
+		t.Error("Password without special characters did not security test for passwords with special characters")
+	}
+}
+
 func TestImpossiblePasswords(t *testing.T) {
 	for i := 0; i < 4; i++ {
 		_, err := NewSecurePassword().GeneratePassword(i, false)
