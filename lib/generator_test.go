@@ -80,6 +80,15 @@ func TestSecurePasswordWithSpecialCharacter(t *testing.T) {
 	}
 }
 
+func TestImpossiblePasswords(t *testing.T) {
+	for i := 0; i < 4; i++ {
+		_, err := NewSecurePassword().GeneratePassword(i, false)
+		if err != ErrLengthTooLow {
+			t.Errorf("Password with a length of %d did not throw as ErrLengthTooLow error", i)
+		}
+	}
+}
+
 func BenchmarkGeneratePasswords8Char(b *testing.B) {
 	pwd := NewSecurePassword()
 	for i := 0; i < b.N; i++ {

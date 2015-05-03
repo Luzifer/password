@@ -65,12 +65,18 @@ func startAPIServer(c *cli.Context) {
 }
 
 func printPassword(c *cli.Context) {
-	if c.Int("length") < 5 {
-		fmt.Println("Passwords with fewer than 5 characters are too insecure.")
+	password, err := pwd.GeneratePassword(c.Int("length"), c.Bool("special"))
+	if err != nil {
+		switch {
+		case err == securepassword.ErrLengthTooLow:
+			fmt.Println("The password has to be more than 4 characters long to meet the security considerations")
+		default:
+			fmt.Println("An unknown error occured")
+		}
 		os.Exit(1)
 	}
 
-	fmt.Println(pwd.GeneratePassword(c.Int("length"), c.Bool("special")))
+	fmt.Println(password)
 }
 
 func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
@@ -80,12 +86,14 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 	}
 	special := r.URL.Query().Get("special") == "true"
 
-	if length > 128 || length < 5 {
-		http.Error(res, "Please do not use length with more than 128 or fewer than 5 characters!", http.StatusNotAcceptable)
+	if length > 128 || length < 4 {
+		http.Error(res, "Please do not use length with more than 128 or fewer than 4 characters!", http.StatusNotAcceptable)
 		return
 	}
 
+	password, err := pwd.GeneratePassword(length, special)
+
 	res.Header().Add("Content-Type", "text/plain")
 	res.Header().Add("Cache-Control", "no-cache")
-	res.Write([]byte(pwd.GeneratePassword(length, special)))
+	res.Write([]byte(password))
 }

@@ -1,6 +1,8 @@
+// Package securepassword implements a password generator and check.
 package securepassword // import "github.com/Luzifer/password/lib"
 
 import (
+	"errors"
 	"fmt"
 	"math/rand"
 	"regexp"
@@ -8,12 +10,21 @@ import (
 	"time"
 )
 
+// SecurePassword provides methods for generating secure passwords and
+// checking the security requirements of passwords
 type SecurePassword struct {
 	characterTables map[string]string
 	insecurePattern []string
 	badCharacters   []string
 }
 
+var (
+	// ErrLengthTooLow represents an error thrown if the password will
+	// never be able match the security considerations in this package
+	ErrLengthTooLow = errors.New("Passwords with a length lower than 4 will never meet the security requirements")
+)
+
+// NewSecurePassword initializes a new SecurePassword generator
 func NewSecurePassword() *SecurePassword {
 	return &SecurePassword{
 		characterTables: map[string]string{
@@ -36,7 +47,16 @@ func NewSecurePassword() *SecurePassword {
 	}
 }
 
-func (s *SecurePassword) GeneratePassword(length int, special bool) string {
+// GeneratePassword generates a new password with a given length and
+// optional special characters in it. The password is automatically
+// checked against CheckPasswordSecurity in order to only deliver secure
+// passwords.
+func (s *SecurePassword) GeneratePassword(length int, special bool) (string, error) {
+	// Sanity check
+	if length < 4 {
+		return "", ErrLengthTooLow
+	}
+
 	characterTable := strings.Join([]string{
 		s.characterTables["simple"],
 		strings.ToUpper(s.characterTables["simple"]),
@@ -60,9 +80,14 @@ func (s *SecurePassword) GeneratePassword(length int, special bool) string {
 			password = ""
 		}
 	}
-	return password
+	return password, nil
 }
 
+// CheckPasswordSecurity executes three checks to ensure the passwords
+// meet the security considerations in this package:
+// - The password may not contain pattern found on the keyboard or in alphabet
+// - The password must have 3 or 4 different character groups in it
+// - The password may not have repeating characters
 func (s *SecurePassword) CheckPasswordSecurity(password string, needsSpecialCharacters bool) bool {
 	return !s.hasInsecurePattern(password) &&
 		s.matchesBasicSecurity(password, needsSpecialCharacters) &&
