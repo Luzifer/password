@@ -85,9 +85,10 @@ func (s *SecurePassword) GeneratePassword(length int, special bool) (string, err
 
 // CheckPasswordSecurity executes three checks to ensure the passwords
 // meet the security considerations in this package:
-// - The password may not contain pattern found on the keyboard or in alphabet
-// - The password must have 3 or 4 different character groups in it
-// - The password may not have repeating characters
+//
+// 1. The password may not contain pattern found on the keyboard or in alphabet
+// 2. The password must have 3 or 4 different character groups in it
+// 3. The password may not have repeating characters
 func (s *SecurePassword) CheckPasswordSecurity(password string, needsSpecialCharacters bool) bool {
 	return !s.hasInsecurePattern(password) &&
 		s.matchesBasicSecurity(password, needsSpecialCharacters) &&
