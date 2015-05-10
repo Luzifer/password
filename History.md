@@ -1,4 +1,9 @@
 
+1.2.2 / 2015-05-10
+==================
+
+  * Fix: Blacklisted characters were not excluded from passwords
+
 1.2.1 / 2015-05-10
 ==================
 
