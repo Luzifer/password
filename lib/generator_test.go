@@ -1,6 +1,9 @@
 package securepassword
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestInsecurePasswords(t *testing.T) {
 	passwords := map[string]string{
@@ -115,6 +118,23 @@ func TestImpossiblePasswords(t *testing.T) {
 		_, err := NewSecurePassword().GeneratePassword(i, false)
 		if err != ErrLengthTooLow {
 			t.Errorf("Password with a length of %d did not throw as ErrLengthTooLow error", i)
+		}
+	}
+}
+
+func TestBadCharacters(t *testing.T) {
+	badCharacters := []string{"I", "l", "0", "O", "B", "8"}
+
+	for i := 0; i < 500; i++ {
+		pwd, err := NewSecurePassword().GeneratePassword(20, false)
+		if err != nil {
+			t.Errorf("An error occured: %s", err)
+		}
+		for _, char := range badCharacters {
+			if strings.Contains(pwd, char) {
+				t.Errorf("Password '%s' contained blacklisted character: '%s'", pwd, char)
+				return
+			}
 		}
 	}
 }

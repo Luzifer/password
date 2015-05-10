@@ -69,9 +69,14 @@ func (s *SecurePassword) GeneratePassword(length int, special bool) (string, err
 	password := ""
 	rand.Seed(time.Now().UnixNano())
 	for {
+		char := string(characterTable[rand.Intn(len(characterTable))])
+		if strings.Contains(strings.Join(s.badCharacters, ""), char) {
+			continue
+		}
+
 		password = fmt.Sprintf("%s%s",
 			password,
-			string(characterTable[rand.Intn(len(characterTable))]),
+			char,
 		)
 		if len(password) == length {
 			if s.CheckPasswordSecurity(password, special) {
