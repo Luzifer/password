@@ -1,4 +1,10 @@
 
+1.2.1 / 2015-05-10
+==================
+
+  * Added links to extension & documentation
+  * Fix: Load bootstrap theme via HTTPs
+
 1.2.0 / 2015-05-10
 ==================
 
