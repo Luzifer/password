@@ -1,12 +1,12 @@
 # Luzifer / password
 
-This project is a rewrite of my former password generator written in Python. The intention is to provide a fast and secure way to generate one or more passwords using a CLI tool or a HTTP(s) API.
+This project is a rewrite of my former password generator written in Python. The intention is to provide a fast and secure way to generate one or more passwords using a CLI tool, a HTTPs page or a HTTPs API.
 
 ## Usage
 
 ### Via Web
 
-My service [pwd.knut.me](http://pwd.knut.me/) is powered by this API and will provide you with secure passwords.
+My service [Secure Password](https://pwd.luzifer.io/) is powered by this app and will provide you with secure passwords.
 
 ### Via CLI
 
