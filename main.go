@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -58,6 +59,8 @@ func main() {
 
 func startAPIServer(c *cli.Context) {
 	r := mux.NewRouter()
+	r.HandleFunc("/", handleFrontend).Methods("GET")
+	r.PathPrefix("/assets").HandlerFunc(handleAssets).Methods("GET")
 	r.HandleFunc("/v1/getPassword", handleAPIGetPasswordv1).Methods("GET")
 
 	http.Handle("/", r)
@@ -96,4 +99,24 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 	res.Header().Add("Content-Type", "text/plain")
 	res.Header().Add("Cache-Control", "no-cache")
 	res.Write([]byte(password))
+}
+
+func handleFrontend(res http.ResponseWriter, r *http.Request) {
+	res.Header().Add("Content-Type", "text/html")
+	buf, err := Asset("frontend/index.html")
+	if err != nil {
+		http.Error(res, "Unable to load interface", http.StatusInternalServerError)
+		log.Println(err)
+		return
+	}
+	res.Write(buf)
+}
+
+func handleAssets(res http.ResponseWriter, r *http.Request) {
+	buf, err := Asset(fmt.Sprintf("frontend%s", r.URL.Path))
+	if err != nil {
+		http.Error(res, "Unable to load interface", http.StatusInternalServerError)
+		return
+	}
+	res.Write(buf)
 }
