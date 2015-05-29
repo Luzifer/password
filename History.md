@@ -1,4 +1,10 @@
 
+1.3.0 / 2015-05-29
+==================
+
+  * Replaced codegangsta/cli by spf13/cobra
+  * Fixed some wording / URLs in README
+
 1.2.2 / 2015-05-10
 ==================
 
