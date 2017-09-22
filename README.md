@@ -1,3 +1,8 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/Luzifer/password)](https://goreportcard.com/report/github.com/Luzifer/password)
+![](https://badges.fyi/github/license/Luzifer/password)
+![](https://badges.fyi/github/downloads/Luzifer/password)
+![](https://badges.fyi/github/latest-release/Luzifer/password)
+
 # Luzifer / password
 
 This project is a rewrite of my former password generator written in Python. The intention is to provide a fast and secure way to generate one or more passwords using a CLI tool, a HTTPs page or a HTTPs API.
