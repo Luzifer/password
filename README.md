@@ -13,6 +13,15 @@ This project is a rewrite of my former password generator written in Python. The
 
 My service [Secure Password](https://pwd.luzifer.io/) is powered by this app and will provide you with secure passwords.
 
+### Via [Alfred](https://www.alfredapp.com/)
+
+1. Ensure you do have Alfred 3 and have enabled the Powerpack
+2. Download and open the `PasswordGenerator.alfredworkflow` from [Github releases](https://github.com/Luzifer/password/releases/latest)
+3. Let Alfred install the workflow
+4. Generate passwords using `pwd 12` or with special characters `pwd 12 s`
+
+The workflow is set up to automatically check for updates once a day. If you want to check for updates manually open Alfred, enter `pwd workflow:update` and press enter.
+
 ### Via CLI
 
 1. Download the compiled binary from [Github releases](https://github.com/Luzifer/password/releases/latest)
