@@ -1,3 +1,8 @@
+# 1.5.0 / 2017-09-22
+
+  * Include workflow building into build process
+  * Fix: Travis build broken through different tools
+
 # 1.4.0 / 2017-09-22
 
   * Add buttons to README
