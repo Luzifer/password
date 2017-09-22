@@ -5,6 +5,7 @@ checkout_dir: /go/src/github.com/Luzifer/password
 
 commands:
   - apk --update add zip 
+  - git submodule update --init --recursive
   - make publish workflow
 
 environment:
