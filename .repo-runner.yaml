@@ -4,7 +4,8 @@ image: "quay.io/luzifer/repo-runner-image"
 checkout_dir: /go/src/github.com/Luzifer/password
 
 commands:
-  - make publish
+  - apk --update add zip 
+  - make publish workflow
 
 environment:
   CGO_ENABLED: 0
