@@ -1,3 +1,9 @@
+# 1.6.2 / 2017-09-22
+
+  * Fix location of workflow in the frontend
+  * Add instructions for Alfred workflow
+  * Move workflow building to extra script
+
 # 1.6.1 / 2017-09-22
 
   * Fix: Need to download submodules before packaging
