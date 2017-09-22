@@ -1,3 +1,14 @@
+# 1.4.0 / 2017-09-22
+
+  * Add buttons to README
+  * Replace Apache license stub with proper license
+  * Remove references to GoBuilder
+  * Add Github release publishing
+  * Remove static versioning
+  * Vendor dependencies
+  * Update Dockerfile to golang:alpine template
+  * Fix: Dockerfile had wrong argument usage
+
 
 n.n.n / 2015-07-18
 ==================
