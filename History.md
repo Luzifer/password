@@ -1,3 +1,7 @@
+# 1.6.1 / 2017-09-22
+
+  * Fix: Need to download submodules before packaging
+
 # 1.6.0 / 2017-09-22
 
   * Rebuilt workflow for better design and auto-update
