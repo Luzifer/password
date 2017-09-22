@@ -1,11 +1,16 @@
-FROM golang
+FROM golang:alpine
 
-MAINTAINER Knut Ahlers <knut@ahlers.me>
+LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
 
-RUN go get github.com/Luzifer/password && \
-    go install github.com/Luzifer/password
+ADD . /go/src/github.com/Luzifer/password
+WORKDIR /go/src/github.com/Luzifer/password
+
+RUN set -ex \
+ && apk add --update git ca-certificates \
+ && go install -ldflags "-X main.version=$(git describe --tags || git rev-parse --short HEAD || echo dev)" \
+ && apk del --purge git
 
 EXPOSE 3000
 
 ENTRYPOINT ["/go/bin/password"]
-CMD ["serve", "--port=3000"]
+CMD ["--"]

@@ -1,4 +1,9 @@
 
+n.n.n / 2015-07-18
+==================
+
+  * Fix: Dockerfile had wrong argument usage
+
 1.3.0 / 2015-05-29
 ==================
 
