@@ -16,6 +16,13 @@ publish:
 	bash golang.sh
 
 workflow:
-	cp password_darwin_amd64 password
-	zip -9 -j PasswordGenerator.alfredworkflow alfred-workflow/* password
+	mkdir -p dist
+	cp -r password_darwin_amd64 \
+		alfred-workflow/exec.py \
+		alfred-workflow/icon.png \
+		alfred-workflow/info.plist \
+		alfred-workflow/lib/workflow \
+		dist
+	echo -n $(shell git describe --tags --exact-match) > dist/version
+	cd dist && zip -r -9 ../PasswordGenerator.alfredworkflow *
 	github-release upload --user luzifer --repo password --tag $(shell git describe --tags --exact-match) --name PasswordGenerator.alfredworkflow --file PasswordGenerator.alfredworkflow

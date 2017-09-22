@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>me.knut.pwd</string>
+	<string>io.luzifer.pwd</string>
 	<key>category</key>
 	<string>Tools</string>
 	<key>connections</key>
@@ -17,6 +17,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -37,17 +39,23 @@
 				<false/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
+				<key>transient</key>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
 			<string>F417810A-4CC7-4844-9B6E-DA2D6B40543C</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -65,38 +73,17 @@
 				<key>runningsubtext</key>
 				<string>Generating password...</string>
 				<key>script</key>
-				<string>import subprocess, sys
-from feedback import Feedback
-
-password_length = 20
-use_special = False
-
-for arg in '{query}'.split():
-  if arg.isdigit():
-	password_length = int(arg)
-  elif arg == 's':
-	use_special = True
-
-if password_length &lt; 5 or password_length &gt; 128:
-  fb = Feedback()
-  fb.add_item(title="Password length out of bounds", subtitle="Please use a reasonable password length between 5 and 128")
-  print fb
-  sys.exit(1)
-
-command = ["./password", "get", "-l", str(password_length)]
-if use_special:
-  command.append("-s")
-result = subprocess.check_output(command).strip()
-
-fb = Feedback()
-fb.add_item(title=result, arg=result)
-print fb</string>
+				<string>python exec.py "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>subtext</key>
 				<string>Generates a secure password with &lt;n&gt; length</string>
 				<key>title</key>
 				<string>Password Generator</string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -105,7 +92,7 @@ print fb</string>
 			<key>uid</key>
 			<string>F8CBCF9B-3B33-400E-B6AD-6B8500938BA4</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -114,11 +101,15 @@ print fb</string>
 	<dict>
 		<key>F417810A-4CC7-4844-9B6E-DA2D6B40543C</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>170</real>
 		</dict>
 		<key>F8CBCF9B-3B33-400E-B6AD-6B8500938BA4</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>170</real>
 		</dict>
