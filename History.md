@@ -1,3 +1,7 @@
+# 1.6.0 / 2017-09-22
+
+  * Rebuilt workflow for better design and auto-update
+
 # 1.5.0 / 2017-09-22
 
   * Include workflow building into build process
