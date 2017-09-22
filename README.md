@@ -10,7 +10,7 @@ My service [Secure Password](https://pwd.luzifer.io/) is powered by this app and
 
 ### Via CLI
 
-1. Download the compiled binary from [GoBuilder.me](https://gobuilder.me/github.com/Luzifer/password) and unzip the package
+1. Download the compiled binary from [Github releases](https://github.com/Luzifer/password/releases/latest)
 2. Generate your password:
 
     ```bash
@@ -40,7 +40,7 @@ My service [Secure Password](https://pwd.luzifer.io/) is powered by this app and
 
 #### Self-Hosted
 
-1. Download the compiled binary from [GoBuilder.me](https://gobuilder.me/github.com/Luzifer/password) and unzip the package
+1. Download the compiled binary from [Github releases](https://github.com/Luzifer/password/releases/latest)
 2. Run the API server:
 
     ```bash
@@ -59,7 +59,7 @@ My service [Secure Password](https://pwd.luzifer.io/) is powered by this app and
 #### Hosted
 
 ```bash
-# curl https://password.hub.luzifer.io/v1/getPassword?length=20&special=true
+# curl https://pwd.luzifer.io/v1/getPassword?length=20&special=true
 0M4L-1[lT:@2&7,p,o-;
 ```
 
