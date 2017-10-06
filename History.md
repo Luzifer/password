@@ -1,3 +1,7 @@
+# 1.7.1 / 2017-10-06
+
+  * Fix: Vendor new dependencies
+
 # 1.7.0 / 2017-10-06
 
   * Add option to workflow to copy hashed versions
