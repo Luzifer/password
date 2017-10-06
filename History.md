@@ -1,3 +1,8 @@
+# 1.7.0 / 2017-10-06
+
+  * Add option to workflow to copy hashed versions
+  * Implement JSON output with password hashes
+
 # 1.6.2 / 2017-09-22
 
   * Fix location of workflow in the frontend
