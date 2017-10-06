@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 
+	"github.com/Luzifer/password/hasher"
 	"github.com/Luzifer/password/lib"
 	"github.com/spf13/cobra"
 )
@@ -15,6 +17,7 @@ func getCmdGet() *cobra.Command {
 		Run:   actionCmdGet,
 	}
 
+	cmd.Flags().BoolVarP(&flags.CLI.JSON, "json", "j", false, "return output in JSON format")
 	cmd.Flags().IntVarP(&flags.CLI.Length, "length", "l", 20, "length of the generated password")
 	cmd.Flags().BoolVarP(&flags.CLI.SpecialCharacters, "special", "s", false, "use special characters in your password")
 
@@ -33,5 +36,16 @@ func actionCmdGet(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	fmt.Println(password)
+	if !flags.CLI.JSON {
+		fmt.Println(password)
+		os.Exit(0)
+	}
+
+	hashes, err := hasher.GetHashMap(password)
+	if err != nil {
+		fmt.Printf("Unable to generate hashes: %s", err)
+		os.Exit(1)
+	}
+	hashes["password"] = password
+	json.NewEncoder(os.Stdout).Encode(hashes)
 }
