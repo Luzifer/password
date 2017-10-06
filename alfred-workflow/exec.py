@@ -2,7 +2,19 @@
 
 import subprocess
 import sys
+import json
 from workflow import Workflow, ICON_WEB, web
+
+descriptions = {
+    "htpasswd_apr1": "APR1 (htpasswd)",
+    "htpasswd_bcrypt": "bcrypt (htpasswd)",
+    "htpasswd_sha256": "SHA256 (htpasswd)",
+    "htpasswd_sha512": "SHA512 (htpasswd)",
+    "password": "Password",
+    "sha1": "SHA1",
+    "sha256": "SHA256",
+    "sha512": "SHA512",
+}
 
 
 def main(wf):
@@ -22,12 +34,23 @@ def main(wf):
         wf.send_feedback()
         return 1
 
-    command = ["./password_darwin_amd64", "get", "-l", str(password_length)]
+    command = ["./password_darwin_amd64",
+               "get", "-j", "-l",
+               str(password_length)]
     if use_special:
         command.append("-s")
-    result = subprocess.check_output(command).strip()
+    result = json.loads(subprocess.check_output(command).strip())
 
-    wf.add_item(title=result, arg=result)
+    hashed = []
+    for key, value in result.iteritems():
+        hashed.append("{}: {}".format(key, value))
+
+    wf.add_item(title=result['password'],
+                subtitle="Press Cmd+C to copy",
+                arg=result['password'])
+    wf.add_item(title="Copy hashed versions",
+                subtitle="Press Cmd+C to copy",
+                arg="\n".join(hashed))
     wf.send_feedback()
 
     return 0
