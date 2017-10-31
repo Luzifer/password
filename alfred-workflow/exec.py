@@ -20,6 +20,7 @@ descriptions = {
 def main(wf):
     password_length = 20
     use_special = False
+    use_xkcd = False
 
     if len(wf.args):
         for arg in wf.args[0].split():
@@ -27,10 +28,12 @@ def main(wf):
                 password_length = int(arg)
             elif arg == 's':
                 use_special = True
+            elif arg == 'x':
+                use_xkcd = True
 
-    if password_length < 5 or password_length > 256:
+    if password_length < 4 or password_length > 256:
         wf.add_item(title="Password length out of bounds",
-                    subtitle="Please use a reasonable password length between 5 and 256")
+                    subtitle="Please use a reasonable password length between 4 and 256")
         wf.send_feedback()
         return 1
 
@@ -39,6 +42,8 @@ def main(wf):
                str(password_length)]
     if use_special:
         command.append("-s")
+    if use_xkcd:
+        command.append("-x")
     result = json.loads(subprocess.check_output(command).strip())
 
     hashed = []
