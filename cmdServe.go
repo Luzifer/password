@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	pwd "github.com/Luzifer/password/lib"
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 )
@@ -38,13 +39,20 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 		length = 20
 	}
 	special := r.URL.Query().Get("special") == "true"
+	xkcd := r.URL.Query().Get("xkcd") == "true"
+	prependDate := r.URL.Query().Get("date") != "false"
 
 	if length > 128 || length < 4 {
 		http.Error(res, "Please do not use length with more than 128 or fewer than 4 characters!", http.StatusNotAcceptable)
 		return
 	}
 
-	password, err := pwd.GeneratePassword(length, special)
+	var password string
+	if xkcd {
+		password, err = pwd.DefaultXKCD.GeneratePassword(length, prependDate)
+	} else {
+		password, err = pwd.NewSecurePassword().GeneratePassword(length, special)
+	}
 
 	res.Header().Add("Content-Type", "text/plain")
 	res.Header().Add("Cache-Control", "no-cache")

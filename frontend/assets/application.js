@@ -55,7 +55,7 @@
   loadPassword = function() {
     var options;
     options = loadOptions();
-    return $.get("/v1/getPassword?length=" + options.passwordLength + "&special=" + options.useSpecial, function(data) {
+    return $.get("/v1/getPassword?length=" + options.passwordLength + "&special=" + options.useSpecial + "&xkcd=" + options.useXKCD, function(data) {
       $('#focusedInput').val(data);
       return window.lastLoad = now();
     });
@@ -65,7 +65,8 @@
     var options;
     options = {
       passwordLength: $('#passwordLengthOption').val(),
-      useSpecial: $('#useSpecialOption')[0].checked
+      useSpecial: $('#useSpecialOption')[0].checked,
+      useXKCD: $('#useXKCDOption')[0].checked
     };
     window.$storage('SecurePasswordOptions').set(options);
     $('#settingsModal').modal('hide');
@@ -78,11 +79,13 @@
     if (options === void 0) {
       options = {
         passwordLength: 20,
-        useSpecial: false
+        useSpecial: false,
+        useXKCD: false
       };
     }
     $('#passwordLengthOption').val(options.passwordLength);
     $('#useSpecialOption')[0].checked = options.useSpecial;
+    $('#useXKCDOption')[0].checked = options.useXKCD;
     return options;
   };
 

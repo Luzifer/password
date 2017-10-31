@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/Luzifer/password/hasher"
-	"github.com/Luzifer/password/lib"
+	pwd "github.com/Luzifer/password/lib"
 	"github.com/spf13/cobra"
 )
 
@@ -21,14 +21,27 @@ func getCmdGet() *cobra.Command {
 	cmd.Flags().IntVarP(&flags.CLI.Length, "length", "l", 20, "length of the generated password")
 	cmd.Flags().BoolVarP(&flags.CLI.SpecialCharacters, "special", "s", false, "use special characters in your password")
 
+	cmd.Flags().BoolVarP(&flags.CLI.XKCD, "xkcd", "x", false, "use XKCD style password")
+	cmd.Flags().BoolVarP(&flags.CLI.PrependDate, "date", "d", true, "prepend current date to XKCD style passwords")
+
 	return &cmd
 }
 
 func actionCmdGet(cmd *cobra.Command, args []string) {
-	password, err := pwd.GeneratePassword(flags.CLI.Length, flags.CLI.SpecialCharacters)
+	var (
+		password string
+		err      error
+	)
+
+	if flags.CLI.XKCD {
+		password, err = pwd.DefaultXKCD.GeneratePassword(flags.CLI.Length, flags.CLI.PrependDate)
+	} else {
+		password, err = pwd.NewSecurePassword().GeneratePassword(flags.CLI.Length, flags.CLI.SpecialCharacters)
+	}
+
 	if err != nil {
 		switch {
-		case err == securepassword.ErrLengthTooLow:
+		case err == pwd.ErrLengthTooLow:
 			fmt.Println("The password has to be more than 4 characters long to meet the security considerations")
 		default:
 			fmt.Println("An unknown error occured")

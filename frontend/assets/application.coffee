@@ -37,7 +37,7 @@ setProgress = (perc) ->
 
 loadPassword = () ->
   options = loadOptions()
-  $.get "/v1/getPassword?length=#{options.passwordLength}&special=#{options.useSpecial}", (data) ->
+  $.get "/v1/getPassword?length=#{options.passwordLength}&special=#{options.useSpecial}&xkcd=#{options.useXKCD}", (data) ->
     $('#focusedInput').val(data)
     window.lastLoad = now()
 
@@ -45,6 +45,7 @@ saveOptions = () ->
   options =
     passwordLength: $('#passwordLengthOption').val()
     useSpecial: $('#useSpecialOption')[0].checked
+    useXKCD: $('#useXKCDOption')[0].checked
 
   window.$storage('SecurePasswordOptions').set(options)
   $('#settingsModal').modal('hide')
@@ -56,8 +57,10 @@ loadOptions = () ->
     options =
       passwordLength: 20
       useSpecial: false
+      useXKCD: false
   $('#passwordLengthOption').val(options.passwordLength)
   $('#useSpecialOption')[0].checked = options.useSpecial
+  $('#useXKCDOption')[0].checked = options.useXKCD
   options
 
 tick = () ->

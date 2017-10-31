@@ -5,6 +5,9 @@ var flags = struct {
 		Length            int
 		SpecialCharacters bool
 		JSON              bool
+
+		XKCD        bool
+		PrependDate bool
 	}
 
 	Server struct {
