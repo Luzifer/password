@@ -1,3 +1,9 @@
+# 1.8.0 / 2017-10-31
+
+  * Add XKCD style password generator in library
+  * Add ability to generate XKCD style passwords to tool
+  * Add ability for XKCD style passwords to workflow
+
 # 1.7.1 / 2017-10-06
 
   * Fix: Vendor new dependencies
@@ -35,12 +41,6 @@
   * Remove static versioning
   * Vendor dependencies
   * Update Dockerfile to golang:alpine template
-  * Fix: Dockerfile had wrong argument usage
-
-
-n.n.n / 2015-07-18
-==================
-
   * Fix: Dockerfile had wrong argument usage
 
 1.3.0 / 2015-05-29
