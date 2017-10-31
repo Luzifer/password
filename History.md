@@ -1,3 +1,7 @@
+# 1.9.0 / 2017-10-31
+
+  * Add commandline flag to generate multiple passwords
+
 # 1.8.0 / 2017-10-31
 
   * Add XKCD style password generator in library
