@@ -52,10 +52,12 @@ def main(wf):
 
     wf.add_item(title=result['password'],
                 subtitle="Press Cmd+C to copy",
-                arg=result['password'])
+                arg=result['password'],
+                valid=True)
     wf.add_item(title="Copy hashed versions",
                 subtitle="Press Cmd+C to copy",
-                arg="\n".join(hashed))
+                arg="\n".join(hashed),
+                valid=True)
     wf.send_feedback()
 
     return 0
