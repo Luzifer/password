@@ -1,3 +1,8 @@
+# 1.10.0 / 2018-03-21
+
+  * Make generated passwords actionable again (#3 - Thanks to @funkjedi)
+  * Update workflow library
+
 # 1.9.0 / 2017-10-31
 
   * Add commandline flag to generate multiple passwords
