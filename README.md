@@ -18,7 +18,7 @@ My service [Secure Password](https://pwd.luzifer.io/) is powered by this app and
 1. Ensure you do have Alfred 3 and have enabled the Powerpack
 2. Download and open the `PasswordGenerator.alfredworkflow` from [Github releases](https://github.com/Luzifer/password/releases/latest)
 3. Let Alfred install the workflow
-4. Generate passwords using `pwd 12` or with special characters `pwd 12 s`
+4. Generate passwords using `pwd 12`, with special characters `pwd 12 s` or [XKCD style](https://xkcd.com/936/) `pwd 4 x`
 
 The workflow is set up to automatically check for updates once a day. If you want to check for updates manually open Alfred, enter `pwd workflow:update` and press enter.
 
