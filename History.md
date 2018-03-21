@@ -1,3 +1,9 @@
+# 1.10.1 / 2018-03-21
+
+  * Fix: Workflow building broken by zipping artifacts
+  * Beautify History.md
+  * Add hint for XKCD style passwords
+
 # 1.10.0 / 2018-03-21
 
   * Make generated passwords actionable again (#3 - Thanks to @funkjedi)
