@@ -1,3 +1,7 @@
+# 1.11.1 / 2018-12-30
+
+  * Fix: Load JS earlier
+
 # 1.11.0 / 2018-12-30
 
   * Port from coffeescript to plain ES6
