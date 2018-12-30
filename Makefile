@@ -1,14 +1,19 @@
 default: pack
 
-compile_coffee:
-	coffee -c frontend/assets/application.coffee
+compile_js:
+	docker run --rm -i \
+		-v "$(CURDIR):$(CURDIR)" \
+		-w "$(CURDIR)/js" \
+		-u $(shell id -u) \
+		node:10-alpine \
+		sh -c "yarn && npx webpack"
 
-debug: compile_coffee
+debug:
 	go-bindata --debug frontend/...
 	go run *.go serve
 	open http://127.0.0.1:3000/
 
-pack: compile_coffee
+pack: compile_js
 	go-bindata frontend/...
 	bash generateXKCDWordList.sh
 
