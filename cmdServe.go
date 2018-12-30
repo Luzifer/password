@@ -3,12 +3,15 @@ package main
 import (
 	"fmt"
 	"log"
+	"mime"
 	"net/http"
+	"path"
 	"strconv"
 
-	pwd "github.com/Luzifer/password/lib"
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
+
+	pwd "github.com/Luzifer/password/lib"
 )
 
 func getCmdServe() *cobra.Command {
@@ -76,5 +79,7 @@ func handleAssets(res http.ResponseWriter, r *http.Request) {
 		http.Error(res, "Unable to load interface", http.StatusInternalServerError)
 		return
 	}
+
+	res.Header().Set("Content-Type", mime.TypeByExtension(path.Base(r.URL.Path)))
 	res.Write(buf)
 }
