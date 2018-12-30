@@ -1,3 +1,7 @@
+# 1.10.3 / 2018-12-30
+
+  * Fix: Mime guessing takes only the extension
+
 # 1.10.2 / 2018-12-30
 
   * Update Dockerfile
