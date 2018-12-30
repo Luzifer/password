@@ -1,16 +1,26 @@
-FROM golang:alpine
+FROM golang:alpine as builder
 
-LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
-
-ADD . /go/src/github.com/Luzifer/password
+COPY . /go/src/github.com/Luzifer/password
 WORKDIR /go/src/github.com/Luzifer/password
 
 RUN set -ex \
- && apk add --update git ca-certificates \
- && go install -ldflags "-X main.version=$(git describe --tags || git rev-parse --short HEAD || echo dev)" \
- && apk del --purge git
+ && apk add --update git \
+ && go install -ldflags "-X main.version=$(git describe --tags || git rev-parse --short HEAD || echo dev)"
+
+FROM alpine:latest
+
+LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
+
+RUN set -ex \
+ && apk --no-cache add \
+      ca-certificates \
+      mailcap
+
+COPY --from=builder /go/bin/password /usr/local/bin/password
 
 EXPOSE 3000
 
-ENTRYPOINT ["/go/bin/password"]
+ENTRYPOINT ["/usr/local/bin/password"]
 CMD ["--"]
+
+# vim: set ft=Dockerfile:
