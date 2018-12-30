@@ -1,3 +1,8 @@
+# 1.10.2 / 2018-12-30
+
+  * Update Dockerfile
+  * Fix: Serve needs to provide proper mime types
+
 # 1.10.1 / 2018-03-21
 
   * Fix: Workflow building broken by zipping artifacts
