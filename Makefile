@@ -15,7 +15,7 @@ debug:
 	open http://127.0.0.1:3000/
 
 pack: compile_js
-	go-bindata frontend/...
+	go-bindata -modtime 1 frontend/...
 	bash generateXKCDWordList.sh
 
 publish:
