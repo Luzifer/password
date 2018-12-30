@@ -80,6 +80,6 @@ func handleAssets(res http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res.Header().Set("Content-Type", mime.TypeByExtension(path.Base(r.URL.Path)))
+	res.Header().Set("Content-Type", mime.TypeByExtension(path.Ext(r.URL.Path)))
 	res.Write(buf)
 }
