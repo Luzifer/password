@@ -11,6 +11,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 
+	http_helper "github.com/Luzifer/go_helpers/http"
 	pwd "github.com/Luzifer/password/lib"
 )
 
@@ -29,7 +30,7 @@ func getCmdServe() *cobra.Command {
 func actionCmdServe(cmd *cobra.Command, args []string) {
 	r := mux.NewRouter()
 	r.HandleFunc("/", handleFrontend).Methods("GET")
-	r.PathPrefix("/assets").HandlerFunc(handleAssets).Methods("GET")
+	r.PathPrefix("/assets").HandlerFunc(http_helper.GzipFunc(handleAssets)).Methods("GET")
 	r.HandleFunc("/v1/getPassword", handleAPIGetPasswordv1).Methods("GET")
 
 	http.Handle("/", r)
