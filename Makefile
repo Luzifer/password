@@ -1,6 +1,7 @@
 default: pack
 
 compile_js:
+	rm -f ./frontend/assets/*
 	docker run --rm -i \
 		-v "$(CURDIR):$(CURDIR)" \
 		-w "$(CURDIR)/js" \

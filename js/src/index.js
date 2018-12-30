@@ -1,8 +1,7 @@
 import 'jquery'
 import 'bootstrap'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootswatch/paper/bootstrap.min.css'
+import './style.scss'
 
 import storage from './storage.js'
 

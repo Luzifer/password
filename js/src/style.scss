@@ -1,0 +1,31 @@
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$web-font-path: '~typeface-roboto/index.css';
+@import '~bootswatch/paper/_variables.scss';
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import '~bootswatch/paper/_bootswatch.scss';
+
+body {
+  background-color: #e2e2e2;
+}
+
+.white {
+  background-color: #fff;
+}
+
+.center {
+  text-align: center;
+}
+
+.faq {
+  margin-top: 3em;
+}
+
+.progress {
+  margin-bottom: 0px;
+}
+
+.jumbotron p {
+  margin-bottom: 0;
+}
+
