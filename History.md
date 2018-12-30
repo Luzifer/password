@@ -1,3 +1,11 @@
+# 1.11.0 / 2018-12-30
+
+  * Port from coffeescript to plain ES6
+  * Ensure fonts are loaded from local instead of gfonts
+  * Enable gzip compression on assets
+  * Fix: RawGit is closing down, use Github URL
+  * Update vendored libraries
+
 # 1.10.3 / 2018-12-30
 
   * Fix: Mime guessing takes only the extension
