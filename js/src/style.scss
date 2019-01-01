@@ -1,9 +1,9 @@
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$font-size-base: 0.95rem;
 $web-font-path: '~typeface-roboto/index.css';
-@import '~bootswatch/paper/_variables.scss';
+@import '~bootswatch/dist/materia/_variables.scss';
 
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-@import '~bootswatch/paper/_bootswatch.scss';
+@import "~bootstrap/scss/bootstrap";
+@import '~bootswatch/dist/materia/_bootswatch.scss';
 
 body {
   background-color: #e2e2e2;

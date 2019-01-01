@@ -1,8 +1,22 @@
-import 'jquery'
+// Libraries
 import 'bootstrap'
 
+// Styles
 import './style.scss'
 
+// FontAwesome 5
+import {
+  library,
+  dom
+} from '@fortawesome/fontawesome-svg-core'
+import {
+  faCog
+} from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCog)
+dom.watch()
+
+// Application code
 import storage from './storage.js'
 
 let now = () => {
