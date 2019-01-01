@@ -1,3 +1,8 @@
+# 1.12.1 / 2019-01-01
+
+  * Update README
+  * Build on more Go versions
+
 # 1.12.0 / 2019-01-01
 
   * Port application to Bootstrap 4
