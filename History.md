@@ -1,3 +1,8 @@
+# 1.12.0 / 2019-01-01
+
+  * Port application to Bootstrap 4
+  * Fix: Copy&Paste error
+
 # 1.11.1 / 2018-12-30
 
   * Fix: Load JS earlier
