@@ -10,7 +10,7 @@ func getCmdVersion() *cobra.Command {
 	cmd := cobra.Command{
 		Use:     "version",
 		Aliases: []string{"v"},
-		Short:   "prints the current version of awsenv",
+		Short:   "prints the current version of password",
 		Run:     actionCmdVersion,
 	}
 
