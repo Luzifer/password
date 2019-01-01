@@ -12,7 +12,6 @@ compile_js:
 debug:
 	go-bindata --debug frontend/...
 	go run *.go serve
-	open http://127.0.0.1:3000/
 
 pack: compile_js
 	go-bindata -modtime 1 frontend/...
