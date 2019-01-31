@@ -1,3 +1,7 @@
+# 1.13.0 / 2019-01-31
+
+  * Add ability to check the passwords against HIBP database
+
 # 1.12.1 / 2019-01-01
 
   * Update README
