@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/spf13/cobra"
+
 	"github.com/Luzifer/password/hasher"
 	pwd "github.com/Luzifer/password/lib"
-	"github.com/spf13/cobra"
 )
 
 func getCmdGet() *cobra.Command {
@@ -25,6 +26,8 @@ func getCmdGet() *cobra.Command {
 	cmd.Flags().BoolVarP(&flags.CLI.XKCD, "xkcd", "x", false, "use XKCD style password")
 	cmd.Flags().BoolVarP(&flags.CLI.PrependDate, "date", "d", true, "prepend current date to XKCD style passwords")
 
+	cmd.Flags().Bool("check-hibp", false, "Check HaveIBeenPwned for this password")
+
 	return &cmd
 }
 
@@ -36,10 +39,23 @@ func actionCmdGet(cmd *cobra.Command, args []string) {
 
 	for i := 0; i < flags.CLI.Num; i++ {
 
+	regenerate:
 		if flags.CLI.XKCD {
 			password, err = pwd.DefaultXKCD.GeneratePassword(flags.CLI.Length, flags.CLI.PrependDate)
 		} else {
 			password, err = pwd.NewSecurePassword().GeneratePassword(flags.CLI.Length, flags.CLI.SpecialCharacters)
+		}
+
+		if c, _ := cmd.Flags().GetBool("check-hibp"); c {
+			switch pwd.CheckHIBPPasswordHash(password) {
+			case pwd.ErrPasswordInBreach:
+				goto regenerate
+			case nil:
+				// Just do nothing
+			default:
+				fmt.Printf("Unable to check for password pwnage: %s", err)
+				os.Exit(1)
+			}
 		}
 
 		if err != nil {
