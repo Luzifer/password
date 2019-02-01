@@ -1,3 +1,7 @@
+# 1.13.1 / 2019-02-01
+
+  * Fix: Add missing dependencies
+
 # 1.13.0 / 2019-01-31
 
   * Add ability to check the passwords against HIBP database
