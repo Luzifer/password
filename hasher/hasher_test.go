@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Luzifer/go_helpers/str"
+	"github.com/Luzifer/go_helpers/v2/str"
 )
 
 func TestAvailableHashs(t *testing.T) {
