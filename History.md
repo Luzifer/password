@@ -1,3 +1,7 @@
+# 2.0.2 / 2019-02-28
+
+  * Fix import paths and update depdencies
+
 # 2.0.1 / 2019-02-28
 
   * Fix: Broken versioned import path
