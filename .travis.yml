@@ -6,5 +6,5 @@ go:
   - 1.12.x
   - tip
 
-install: go get github.com/Luzifer/password/lib
+install: go get -v github.com/Luzifer/password/lib
 script: go test -v --bench=. github.com/Luzifer/password/lib
