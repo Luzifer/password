@@ -1,3 +1,10 @@
+# 2.0.0 / 2019-02-28
+
+  - Fix broken vendoring for library users (closes #4)
+    - **Breaking:** Move command to `cmd/password` subdir
+  - **Breaking:** Drop support for Alfred workflow
+  - Add support for Go 1.11+ modules
+
 # 1.13.1 / 2019-02-01
 
   * Fix: Add missing dependencies
