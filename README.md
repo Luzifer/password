@@ -84,6 +84,18 @@ $ curl https://passwd.fyi/v1/getPassword?length=20&special=true
 0M4L-1[lT:@2&7,p,o-;
 ```
 
+#### As library in your own code
+
+```go
+package main
+
+import pwd "github.com/Luzifer/password/v2/lib"
+
+func getPassword() (string, error) {
+	return pwd.NewSecurePassword().GeneratePassword(16, false)
+}
+```
+
 ## Benchmark / Test
 
 Tests and benchmark are run by Travis CI at every push to this repository:
