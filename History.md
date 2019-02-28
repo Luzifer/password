@@ -1,3 +1,7 @@
+# 2.0.3 / 2019-02-28
+
+  * Fix missing variables for Github publishing
+
 # 2.0.2 / 2019-02-28
 
   * Fix import paths and update depdencies
