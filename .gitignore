@@ -1,4 +1,5 @@
+cmd/password/.build
+cmd/password/password
 dist
 frontend/assets/*
 js/node_modules/*
-cmd/password/password

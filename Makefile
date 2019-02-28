@@ -18,5 +18,5 @@ pack: compile_js
 	bash generateXKCDWordList.sh
 
 publish:
-	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
-	bash golang.sh
+	curl -sSLo cmd/password/golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
+	cd cmd/password && bash golang.sh

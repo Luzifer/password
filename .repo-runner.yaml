@@ -1,10 +1,11 @@
 ---
 
-image: "quay.io/luzifer/repo-runner-image"
-checkout_dir: /go/src/github.com/Luzifer/password
+image: "reporunner/golang-alpine"
+checkout_dir: /src
 
 commands:
   - make publish
 
 environment:
   CGO_ENABLED: 0
+  PACKAGES: .
