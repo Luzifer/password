@@ -1,3 +1,7 @@
+# 2.0.1 / 2019-02-28
+
+  * Fix: Broken versioned import path
+
 # 2.0.0 / 2019-02-28
 
   - Fix broken vendoring for library users (closes #4)
