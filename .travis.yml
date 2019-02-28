@@ -8,4 +8,5 @@ go:
   - 1.11.x
   - tip
 
-script: go test -v --bench=. github.com/Luzifer/password github.com/Luzifer/password/lib
+install: go get github.com/Luzifer/password/lib
+script: go test -v --bench=. github.com/Luzifer/password/lib
