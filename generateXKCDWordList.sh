@@ -1,10 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-version="8744120d"
-source="https://raw.githubusercontent.com/leonardr/olipy/${version}/data/more-corpora/scribblenauts_words.txt"
+version="19af63af"
+source="https://raw.githubusercontent.com/leonardr/olipy/${version}/olipy/data/corpora-olipy/words/scribblenauts.json"
 
-words=$(curl -sL "${source}" | awk '/^[a-z]{4}[a-z]*$/{ print "\""$1"\"," }')
+words=$(curl -sL "${source}" | jq -r '.nouns | .[]' | sort | awk '/^[a-z]{4}[a-z]*$/{ print "\""$1"\"," }')
 
 cat -s <<EOF >lib/xkcd_words.go
 package securepassword
