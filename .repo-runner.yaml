@@ -8,4 +8,6 @@ commands:
 
 environment:
   CGO_ENABLED: 0
+  GHUSER: Luzifer
   PACKAGES: .
+  REPO: password
