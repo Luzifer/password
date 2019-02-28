@@ -1,6 +1,4 @@
 dist
 frontend/assets/*
 js/node_modules/*
-password
-password_darwin_amd64
-PasswordGenerator.alfredworkflow
+cmd/password/password

@@ -10,11 +10,11 @@ compile_js:
 		sh -c "yarn && npx webpack"
 
 debug:
-	go-bindata --debug frontend/...
+	go-bindata --debug -o cmd/password/bindata.go --pkg=main frontend/...
 	go run *.go serve
 
 pack: compile_js
-	go-bindata -modtime 1 frontend/...
+	go-bindata -modtime 1 -o cmd/password/bindata.go --pkg=main frontend/...
 	bash generateXKCDWordList.sh
 
 publish:
