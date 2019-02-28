@@ -1,11 +1,10 @@
 language: go
 
 go:
-  - 1.7.x
-  - 1.8.x
-  - 1.9.x
   - 1.10.x
   - 1.11.x
+  - 1.12.x
   - tip
 
-script: go test -v --bench=. github.com/Luzifer/password github.com/Luzifer/password/lib
+install: go get -v github.com/Luzifer/password/lib
+script: go test -v --bench=. github.com/Luzifer/password/lib

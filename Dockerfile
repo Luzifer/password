@@ -1,7 +1,7 @@
 FROM golang:alpine as builder
 
-COPY . /go/src/github.com/Luzifer/password
-WORKDIR /go/src/github.com/Luzifer/password
+COPY . /src/github.com/Luzifer/password
+WORKDIR /src/github.com/Luzifer/password/cmd/password
 
 RUN set -ex \
  && apk add --update git \
