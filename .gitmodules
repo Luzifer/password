@@ -1,3 +1,0 @@
-[submodule "alfred-workflow/lib"]
-	path = alfred-workflow/lib
-	url = https://github.com/deanishe/alfred-workflow.git
