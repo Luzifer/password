@@ -1,3 +1,7 @@
+# 2.0.4 / 2019-07-14
+
+  * Fix node package vulnerabilities, switch to NPM
+
 # 2.0.3 / 2019-02-28
 
   * Fix missing variables for Github publishing
