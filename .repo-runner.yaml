@@ -1,7 +1,7 @@
 ---
 
 image: "reporunner/golang-alpine"
-checkout_dir: /src
+checkout_dir: /go/src/github.com/Luzifer/password
 
 commands:
   - make publish
@@ -9,5 +9,6 @@ commands:
 environment:
   CGO_ENABLED: 0
   GHUSER: Luzifer
-  PACKAGES: .
+  GO111MODULE: on
+  PACKAGES: github.com/Luzifer/password/cmd/password
   REPO: password

@@ -1,4 +1,4 @@
-module password
+module github.com/Luzifer/password/cmd/password
 
 go 1.12
 
