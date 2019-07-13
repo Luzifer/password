@@ -1,3 +1,7 @@
+# 2.0.5 / 2019-07-14
+
+  * Fix: Adjust to new build script
+
 # 2.0.4 / 2019-07-14
 
   * Fix node package vulnerabilities, switch to NPM
