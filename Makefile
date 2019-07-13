@@ -7,7 +7,7 @@ compile_js:
 		-w "$(CURDIR)/js" \
 		-u $(shell id -u) \
 		node:10-alpine \
-		sh -c "yarn && npx webpack"
+		sh -c "npx npm@lts ci && npx webpack"
 
 debug:
 	go-bindata --debug -o cmd/password/bindata.go --pkg=main frontend/...
