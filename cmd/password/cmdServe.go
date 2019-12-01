@@ -42,14 +42,18 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		length = 20
 	}
+
 	special := r.URL.Query().Get("special") == "true"
 	xkcd := r.URL.Query().Get("xkcd") == "true"
 	prependDate := r.URL.Query().Get("date") != "false"
+	xkcdSeparator := r.URL.Query().Get("separator")
 
 	if length > 128 || length < 4 {
 		http.Error(res, "Please do not use length with more than 128 or fewer than 4 characters!", http.StatusNotAcceptable)
 		return
 	}
+
+	pwd.DefaultXKCD.Separator = xkcdSeparator
 
 	var password string
 	if xkcd {

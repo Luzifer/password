@@ -41,7 +41,7 @@ let setProgress = (perc) => {
 
 let loadPassword = () => {
   let options = loadOptions()
-  $.get(`/v1/getPassword?length=${options.passwordLength}&special=${options.useSpecial}&xkcd=${options.useXKCD}`, (data) => {
+  $.get(`/v1/getPassword?length=${options.passwordLength}&special=${options.useSpecial}&xkcd=${options.useXKCD}&separator=${options.xkcdSeparator}`, (data) => {
     $('#focusedInput').val(data)
     window.lastLoad = now()
   })
@@ -52,6 +52,7 @@ let saveOptions = () => {
     passwordLength: $('#passwordLengthOption').val(),
     useSpecial: $('#useSpecialOption')[0].checked,
     useXKCD: $('#useXKCDOption')[0].checked,
+    xkcdSeparator: $('#xkcdSeparator').val(),
   }
 
   storage.set('SecurePasswordOptions', options)
@@ -67,11 +68,13 @@ let loadOptions = () => {
       passwordLength: 20,
       useSpecial: false,
       useXKCD: false,
+      xkcdSeparator: '',
     }
   }
-  $('#passwordLengthOption').val(options.passwordLength)
+  $('#passwordLengthOption').val(options.passwordLength || 20)
   $('#useSpecialOption')[0].checked = options.useSpecial
   $('#useXKCDOption')[0].checked = options.useXKCD
+  $('#xkcdSeparator').val(options.xkcdSeparator || '')
 
   return options
 }

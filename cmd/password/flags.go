@@ -9,6 +9,7 @@ var flags = struct {
 
 		XKCD        bool
 		PrependDate bool
+		Separator   string
 	}
 
 	Server struct {

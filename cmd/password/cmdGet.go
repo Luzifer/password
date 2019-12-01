@@ -24,6 +24,7 @@ func getCmdGet() *cobra.Command {
 	cmd.Flags().BoolVarP(&flags.CLI.SpecialCharacters, "special", "s", false, "use special characters in your password")
 
 	cmd.Flags().BoolVarP(&flags.CLI.XKCD, "xkcd", "x", false, "use XKCD style password")
+	cmd.Flags().StringVar(&flags.CLI.Separator, "separator", "", "add separator between words of XKCD style password")
 	cmd.Flags().BoolVarP(&flags.CLI.PrependDate, "date", "d", true, "prepend current date to XKCD style passwords")
 
 	cmd.Flags().Bool("check-hibp", false, "Check HaveIBeenPwned for this password")
@@ -36,6 +37,8 @@ func actionCmdGet(cmd *cobra.Command, args []string) {
 		password string
 		err      error
 	)
+
+	pwd.DefaultXKCD.Separator = flags.CLI.Separator
 
 	for i := 0; i < flags.CLI.Num; i++ {
 
