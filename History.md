@@ -1,3 +1,7 @@
+# 2.2.0 / 2019-12-01
+
+  * [#6] Add support for xkcd separator to CLI / WebUI
+
 # 2.1.0 / 2019-12-01
 
   * [#6] Add optional separator to XKCD passwords
