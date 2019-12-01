@@ -37,6 +37,20 @@ func TestXKCDDatePrepend(t *testing.T) {
 	}
 }
 
+func TestXKCDSeparator(t *testing.T) {
+	gen := NewXKCDGenerator()
+	gen.Separator = "-"
+
+	pwd, err := gen.GeneratePassword(4, false)
+	if err != nil {
+		t.Fatalf("Generated had an error: %s", err)
+	}
+
+	if !regexp.MustCompile(`^(?:[A-Z][a-z]+-){3}(?:[A-Z][a-z]+)$`).MatchString(pwd) {
+		t.Errorf("Password %q did not match expected RegEx", pwd)
+	}
+}
+
 func BenchmarkGeneratePasswords4Words(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		DefaultXKCD.GeneratePassword(4, false)

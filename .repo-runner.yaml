@@ -9,6 +9,5 @@ commands:
 environment:
   CGO_ENABLED: 0
   GHUSER: Luzifer
-  GO111MODULE: on
   PACKAGES: github.com/Luzifer/password/cmd/password
   REPO: password

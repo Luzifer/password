@@ -9,7 +9,10 @@ import (
 	"github.com/Luzifer/go_helpers/v2/str"
 )
 
-type XKCD struct{}
+type XKCD struct {
+	// Separator to be used between words
+	Separator string
+}
 
 var (
 	// ErrTooFewWords represents an error thrown if the password will
@@ -48,9 +51,8 @@ func (x XKCD) GeneratePassword(length int, addDate bool) (string, error) {
 			continue
 		}
 
-		password = password + word
 		usedWords = append(usedWords, word)
 	}
 
-	return password, nil
+	return password + strings.Join(usedWords, x.Separator), nil
 }
