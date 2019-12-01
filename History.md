@@ -1,3 +1,7 @@
+# 2.1.0 / 2019-12-01
+
+  * [#6] Add optional separator to XKCD passwords
+
 # 2.0.5 / 2019-07-14
 
   * Fix: Adjust to new build script
