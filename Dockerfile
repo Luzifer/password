@@ -1,13 +1,19 @@
 FROM golang:alpine as builder
 
 COPY . /src/github.com/Luzifer/password
-WORKDIR /src/github.com/Luzifer/password/cmd/password
+WORKDIR /src/github.com/Luzifer/password
 
 RUN set -ex \
  && apk add --no-cache \
+      build-base \
       git \
       nodejs \
       npm \
+ && make compile_js
+
+WORKDIR /src/github.com/Luzifer/password/cmd/password
+
+RUN set -ex \
  && go install -ldflags "-X main.version=$(git describe --tags || git rev-parse --short HEAD || echo dev)"
 
 
