@@ -4,8 +4,12 @@ COPY . /src/github.com/Luzifer/password
 WORKDIR /src/github.com/Luzifer/password/cmd/password
 
 RUN set -ex \
- && apk add --update git \
+ && apk add --no-cache \
+      git \
+      nodejs \
+      npm \
  && go install -ldflags "-X main.version=$(git describe --tags || git rev-parse --short HEAD || echo dev)"
+
 
 FROM alpine:latest
 
