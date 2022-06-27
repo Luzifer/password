@@ -1,4 +1,5 @@
 // Libraries
+import $ from 'jquery'
 import 'bootstrap'
 
 // Styles
@@ -6,11 +7,11 @@ import './style.scss'
 
 // FontAwesome 5
 import {
+  dom,
   library,
-  dom
 } from '@fortawesome/fontawesome-svg-core'
 import {
-  faCog
+  faCog,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faCog)
@@ -19,36 +20,36 @@ dom.watch()
 // Application code
 import storage from './storage.js'
 
-let now = () => {
-  let d = new Date()
+const now = () => {
+  const d = new Date()
   return d.getTime()
 }
 
-let stopRefresh = () => {
+const stopRefresh = () => {
   clearInterval(window.ticker)
   $('#focusedInput').select()
   return false
 }
 
-let restartRefresh = () => {
+const restartRefresh = () => {
   window.lastLoad = now()
   window.ticker = setInterval(tick, window.tickerInterval)
 }
 
-let setProgress = (perc) => {
+const setProgress = perc => {
   $('.progress-bar').css('width', `${perc}%`)
 }
 
-let loadPassword = () => {
-  let options = loadOptions()
-  $.get(`/v1/getPassword?length=${options.passwordLength}&special=${options.useSpecial}&xkcd=${options.useXKCD}&separator=${options.xkcdSeparator}`, (data) => {
+const loadPassword = () => {
+  const options = loadOptions()
+  $.get(`/v1/getPassword?length=${options.passwordLength}&special=${options.useSpecial}&xkcd=${options.useXKCD}&separator=${options.xkcdSeparator}`, data => {
     $('#focusedInput').val(data)
     window.lastLoad = now()
   })
 }
 
-let saveOptions = () => {
-  let options = {
+const saveOptions = () => {
+  const options = {
     passwordLength: $('#passwordLengthOption').val(),
     useSpecial: $('#useSpecialOption')[0].checked,
     useXKCD: $('#useXKCDOption')[0].checked,
@@ -61,7 +62,7 @@ let saveOptions = () => {
   loadPassword()
 }
 
-let loadOptions = () => {
+const loadOptions = () => {
   let options = storage.get('SecurePasswordOptions')
   if (!options) {
     options = {
@@ -79,9 +80,9 @@ let loadOptions = () => {
   return options
 }
 
-let tick = () => {
-  let diff = now() - window.lastLoad
-  let perc = (window.refreshPassword - diff) / window.refreshPassword * 100
+const tick = () => {
+  const diff = now() - window.lastLoad
+  const perc = (window.refreshPassword - diff) / window.refreshPassword * 100
   setProgress(perc)
   if (diff >= window.refreshPassword) {
     loadPassword()
