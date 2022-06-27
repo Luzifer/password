@@ -9,11 +9,14 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
 	http_helper "github.com/Luzifer/go_helpers/v2/http"
 	pwd "github.com/Luzifer/password/v2/lib"
 )
+
+const defaultHTTPListenPort = 3000
 
 func getCmdServe() *cobra.Command {
 	cmd := cobra.Command{
@@ -22,7 +25,7 @@ func getCmdServe() *cobra.Command {
 		Run:   actionCmdServe,
 	}
 
-	cmd.Flags().IntVar(&flags.Server.Port, "port", 3000, "port to listen on")
+	cmd.Flags().IntVar(&flags.Server.Port, "port", defaultHTTPListenPort, "port to listen on")
 
 	return &cmd
 }
@@ -60,6 +63,11 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 		password, err = pwd.DefaultXKCD.GeneratePassword(length, prependDate)
 	} else {
 		password, err = pwd.NewSecurePassword().GeneratePassword(length, special)
+	}
+
+	if err != nil {
+		http.Error(res, errors.Wrap(err, "generating password").Error(), http.StatusInternalServerError)
+		return
 	}
 
 	res.Header().Add("Content-Type", "text/plain")

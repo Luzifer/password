@@ -11,6 +11,11 @@ import (
 	pwd "github.com/Luzifer/password/v2/lib"
 )
 
+const (
+	defaultPasswordCount  = 1
+	defaultPasswordLength = 20
+)
+
 func getCmdGet() *cobra.Command {
 	cmd := cobra.Command{
 		Use:   "get",
@@ -19,8 +24,8 @@ func getCmdGet() *cobra.Command {
 	}
 
 	cmd.Flags().BoolVarP(&flags.CLI.JSON, "json", "j", false, "return output in JSON format")
-	cmd.Flags().IntVarP(&flags.CLI.Length, "length", "l", 20, "length of the generated password")
-	cmd.Flags().IntVarP(&flags.CLI.Num, "number", "n", 1, "number of passwords to generate")
+	cmd.Flags().IntVarP(&flags.CLI.Length, "length", "l", defaultPasswordLength, "length of the generated password")
+	cmd.Flags().IntVarP(&flags.CLI.Num, "number", "n", defaultPasswordCount, "number of passwords to generate")
 	cmd.Flags().BoolVarP(&flags.CLI.SpecialCharacters, "special", "s", false, "use special characters in your password")
 
 	cmd.Flags().BoolVarP(&flags.CLI.XKCD, "xkcd", "x", false, "use XKCD style password")
@@ -66,7 +71,7 @@ func actionCmdGet(cmd *cobra.Command, args []string) {
 			case err == pwd.ErrLengthTooLow:
 				fmt.Println("The password has to be more than 4 characters long to meet the security considerations")
 			default:
-				fmt.Println("An unknown error occured")
+				fmt.Println("An unknown error occurred")
 			}
 			os.Exit(1)
 		}
