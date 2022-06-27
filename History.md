@@ -1,3 +1,11 @@
+# 2.3.0 / 2022-06-28
+
+  * SEC: fix usage of insecure RNG
+  * Move JS build to esbuild / resolve vulnerabilities
+  * Build javascript directly in container
+  * Switch from bindata to go:embed
+  * Update dependencies
+
 # 2.2.0 / 2019-12-01
 
   * [#6] Add support for xkcd separator to CLI / WebUI
