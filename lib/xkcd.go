@@ -1,10 +1,10 @@
 package securepassword
 
 import (
-	"errors"
-	"fmt"
 	"strings"
 	"time"
+
+	"github.com/pkg/errors"
 
 	"github.com/Luzifer/go_helpers/v2/str"
 )
@@ -46,7 +46,7 @@ func (x XKCD) GeneratePassword(length int, addDate bool) (string, error) {
 	for len(usedWords) < length {
 		widx, err := randIntn(len(xkcdWordList))
 		if err != nil {
-			return "", fmt.Errorf("generating random number: %w", err)
+			return "", errors.Wrap(err, "generating random number")
 		}
 
 		word := strings.Title(xkcdWordList[widx])

@@ -2,10 +2,11 @@
 package securepassword
 
 import (
-	"errors"
 	"fmt"
 	"regexp"
 	"strings"
+
+	"github.com/pkg/errors"
 )
 
 const minPasswordLength = 4
@@ -68,7 +69,7 @@ func (s *SecurePassword) GeneratePassword(length int, special bool) (string, err
 	for {
 		cidx, err := randIntn(len(characterTable))
 		if err != nil {
-			return "", fmt.Errorf("generating random number: %w", err)
+			return "", errors.Wrap(err, "generating random number")
 		}
 
 		char := string(characterTable[cidx])
