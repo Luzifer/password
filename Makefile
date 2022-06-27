@@ -1,4 +1,4 @@
-default: pack
+default:
 
 compile_js:
 	rm -f ./frontend/assets/*
@@ -6,17 +6,9 @@ compile_js:
 		-v "$(CURDIR):$(CURDIR)" \
 		-w "$(CURDIR)/js" \
 		-u $(shell id -u) \
-		node:10-alpine \
-		sh -c "npx npm@lts ci && npx webpack"
+		node:18-alpine \
+		sh -c "node build.mjs"
 
-debug:
-	go-bindata --debug -o cmd/password/bindata.go --pkg=main frontend/...
-	go run *.go serve
-
-pack: compile_js
-	go-bindata -modtime 1 -o cmd/password/bindata.go --pkg=main frontend/...
-	bash generateXKCDWordList.sh
-
-publish:
+publish: compile_js
 	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
 	bash golang.sh

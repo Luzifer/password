@@ -8,6 +8,7 @@ commands:
 
 environment:
   CGO_ENABLED: 0
+  DRAFT: 'false'
   GHUSER: Luzifer
   PACKAGES: github.com/Luzifer/password/cmd/password
   REPO: password
