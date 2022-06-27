@@ -37,7 +37,9 @@ func actionCmdServe(cmd *cobra.Command, args []string) {
 	r.HandleFunc("/v1/getPassword", handleAPIGetPasswordv1).Methods("GET")
 
 	http.Handle("/", r)
-	http.ListenAndServe(fmt.Sprintf(":%d", flags.Server.Port), nil)
+	if err := http.ListenAndServe(fmt.Sprintf(":%d", flags.Server.Port), nil); err != nil {
+		log.Fatalf("listening on port :%d: %s", flags.Server.Port, err)
+	}
 }
 
 func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
