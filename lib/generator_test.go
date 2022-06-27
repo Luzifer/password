@@ -128,7 +128,7 @@ func TestBadCharacters(t *testing.T) {
 	for i := 0; i < 500; i++ {
 		pwd, err := NewSecurePassword().GeneratePassword(20, false)
 		if err != nil {
-			t.Errorf("An error occured: %s", err)
+			t.Errorf("An error occurred: %s", err)
 		}
 		for _, char := range badCharacters {
 			if strings.Contains(pwd, char) {

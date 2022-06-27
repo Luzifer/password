@@ -2,7 +2,7 @@ package securepassword
 
 import (
 	"bufio"
-	"crypto/sha1"
+	"crypto/sha1" //#nosec: G505 // HIBP uses shortened SHA1 to query hashes of vulnerable passwordss
 	"fmt"
 	"net/http"
 	"strings"
@@ -13,7 +13,7 @@ import (
 // ErrPasswordInBreach signals the password passed was found in any
 // breach at least once. The password should not be used if this
 // error is returned.
-var ErrPasswordInBreach = errors.New("Given password is known to HaveIBeenPwned")
+var ErrPasswordInBreach = errors.New("given password is known to HaveIBeenPwned")
 
 // CheckHIBPPasswordHash accesses the HaveIBeenPwned API with the
 // first 5 characters of the SHA1 hash of the password and scans the
@@ -24,7 +24,7 @@ var ErrPasswordInBreach = errors.New("Given password is known to HaveIBeenPwned"
 //
 // See more details at https://haveibeenpwned.com/API/v2#PwnedPasswords
 func CheckHIBPPasswordHash(password string) error {
-	fullHash := fmt.Sprintf("%x", sha1.Sum([]byte(password)))
+	fullHash := fmt.Sprintf("%x", sha1.Sum([]byte(password))) //#nosec: G401 // See crypto/sha1 import
 	checkHash := fullHash[0:5]
 
 	resp, err := http.Get("https://api.pwnedpasswords.com/range/" + checkHash)

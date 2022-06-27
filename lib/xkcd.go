@@ -2,7 +2,7 @@ package securepassword
 
 import (
 	"errors"
-	"math/rand"
+	"fmt"
 	"strings"
 	"time"
 
@@ -30,7 +30,7 @@ func NewXKCDGenerator() *XKCD { return &XKCD{} }
 // GeneratePassword generates a password with the number of words
 // given and optionally the current date prepended
 func (x XKCD) GeneratePassword(length int, addDate bool) (string, error) {
-	if length < 4 {
+	if length < minPasswordLength {
 		return "", ErrTooFewWords
 	}
 
@@ -43,9 +43,13 @@ func (x XKCD) GeneratePassword(length int, addDate bool) (string, error) {
 		password = time.Now().Format("20060102.")
 	}
 
-	rand.Seed(time.Now().UnixNano())
 	for len(usedWords) < length {
-		word := strings.Title(xkcdWordList[rand.Intn(len(xkcdWordList))])
+		widx, err := randIntn(len(xkcdWordList))
+		if err != nil {
+			return "", fmt.Errorf("generating random number: %w", err)
+		}
+
+		word := strings.Title(xkcdWordList[widx])
 		if str.StringInSlice(word, usedWords) {
 			// Don't use a word twice
 			continue

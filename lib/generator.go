@@ -1,14 +1,14 @@
 // Package securepassword implements a password generator and check.
-package securepassword // import "github.com/Luzifer/password/lib"
+package securepassword
 
 import (
 	"errors"
 	"fmt"
-	"math/rand"
 	"regexp"
 	"strings"
-	"time"
 )
+
+const minPasswordLength = 4
 
 // SecurePassword provides methods for generating secure passwords and
 // checking the security requirements of passwords
@@ -18,11 +18,9 @@ type SecurePassword struct {
 	badCharacters   []string
 }
 
-var (
-	// ErrLengthTooLow represents an error thrown if the password will
-	// never be able match the security considerations in this package
-	ErrLengthTooLow = errors.New("Passwords with a length lower than 4 will never meet the security requirements")
-)
+// ErrLengthTooLow represents an error thrown if the password will
+// never be able match the security considerations in this package
+var ErrLengthTooLow = errors.New("passwords with a length lower than 4 will never meet the security requirements")
 
 // NewSecurePassword initializes a new SecurePassword generator
 func NewSecurePassword() *SecurePassword {
@@ -53,7 +51,7 @@ func NewSecurePassword() *SecurePassword {
 // passwords.
 func (s *SecurePassword) GeneratePassword(length int, special bool) (string, error) {
 	// Sanity check
-	if length < 4 {
+	if length < minPasswordLength {
 		return "", ErrLengthTooLow
 	}
 
@@ -67,9 +65,13 @@ func (s *SecurePassword) GeneratePassword(length int, special bool) (string, err
 	}
 
 	password := ""
-	rand.Seed(time.Now().UnixNano())
 	for {
-		char := string(characterTable[rand.Intn(len(characterTable))])
+		cidx, err := randIntn(len(characterTable))
+		if err != nil {
+			return "", fmt.Errorf("generating random number: %w", err)
+		}
+
+		char := string(characterTable[cidx])
 		if strings.Contains(strings.Join(s.badCharacters, ""), char) {
 			continue
 		}
@@ -134,7 +136,7 @@ func (s *SecurePassword) matchesBasicSecurity(password string, needsSpecialChara
 		return false
 	}
 
-	// If request was to require special characters check for their existance
+	// If request was to require special characters check for their existence
 	if needsSpecialCharacters && !regexp.MustCompile(`[^a-zA-Z0-9]`).Match(bytePassword) {
 		return false
 	}

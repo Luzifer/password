@@ -15,7 +15,6 @@ func TestXKCDWordList(t *testing.T) {
 func TestXKCDGeneratePassword(t *testing.T) {
 	for i := 4; i < 20; i++ {
 		pwd, err := DefaultXKCD.GeneratePassword(i, false)
-
 		if err != nil {
 			t.Fatalf("Generated had an error: %s", err)
 		}
