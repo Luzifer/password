@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"log"
 	"mime"
@@ -17,6 +18,9 @@ import (
 )
 
 const defaultHTTPListenPort = 3000
+
+//go:embed frontend/**
+var frontend embed.FS
 
 func getCmdServe() *cobra.Command {
 	cmd := cobra.Command{
@@ -79,7 +83,7 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 
 func handleFrontend(res http.ResponseWriter, r *http.Request) {
 	res.Header().Add("Content-Type", "text/html")
-	buf, err := Asset("frontend/index.html")
+	buf, err := frontend.ReadFile("frontend/index.html")
 	if err != nil {
 		http.Error(res, "Unable to load interface", http.StatusInternalServerError)
 		log.Println(err)
@@ -89,7 +93,7 @@ func handleFrontend(res http.ResponseWriter, r *http.Request) {
 }
 
 func handleAssets(res http.ResponseWriter, r *http.Request) {
-	buf, err := Asset(fmt.Sprintf("frontend%s", r.URL.Path))
+	buf, err := frontend.ReadFile(fmt.Sprintf("frontend%s", r.URL.Path))
 	if err != nil {
 		http.Error(res, "Unable to load interface", http.StatusInternalServerError)
 		return
