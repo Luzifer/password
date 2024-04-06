@@ -1,3 +1,9 @@
+# 2.4.0 / 2024-04-07
+
+  * CI: Replace build-system
+  * Modernize code, replace broken library
+  * Update dependencies
+
 # 2.3.0 / 2022-06-28
 
   * SEC: fix usage of insecure RNG
