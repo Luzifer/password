@@ -1,0 +1,79 @@
+---
+
+name: test-and-build
+on:
+  push:
+    branches: ['*']
+    tags: ['v*']
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  test-and-build:
+    defaults:
+      run:
+        shell: bash
+
+    container:
+      image: luzifer/archlinux
+      env:
+        CGO_ENABLED: 0
+        GOPATH: /go
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enable custom AUR package repo
+        run: echo -e "[luzifer]\nSigLevel = Never\nServer = https://archrepo.hub.luzifer.io/\$arch" >>/etc/pacman.conf
+
+      - name: Install required packages
+        run: |
+          pacman -Syy --noconfirm \
+            awk \
+            curl \
+            diffutils \
+            git \
+            go \
+            golangci-lint-bin \
+            make \
+            nodejs-lts-hydrogen \
+            npm \
+            tar \
+            trivy \
+            unzip \
+            which \
+            zip
+
+      - uses: actions/checkout@v4
+
+      - name: Marking workdir safe
+        run: git config --global --add safe.directory /__w/password/password
+
+      - name: 'Lint and test code'
+        run: |
+          go test -bench=. -cover -v ./...
+          golangci-lint run ./...
+
+      - name: Build release
+        run: make publish
+        env:
+          FORCE_SKIP_UPLOAD: 'true'
+          MOD_MODE: readonly
+          NO_TESTS: 'true'
+          PACKAGES: '.'
+
+      - name: Extract changelog
+        run: 'awk "/^#/ && ++c==2{exit}; /^#/f" "History.md" | tail -n +2 >release_changelog.md'
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          artifacts: '.build/*'
+          bodyFile: release_changelog.md
+          draft: false
+          generateReleaseNotes: false
+
+...

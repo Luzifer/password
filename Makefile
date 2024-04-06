@@ -6,6 +6,16 @@ compile_js: js/node_modules
 js/node_modules:
 	cd js && npm ci
 
-publish:
-	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
-	bash golang.sh
+publish: compile_js
+	bash ci/build.sh
+
+trivy:
+	trivy fs . \
+		--dependency-tree \
+		--exit-code 1 \
+		--format table \
+		--ignore-unfixed \
+		--quiet \
+		--scanners misconfig,license,secret,vuln \
+		--severity HIGH,CRITICAL \
+		--skip-dirs docs
