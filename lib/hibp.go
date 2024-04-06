@@ -2,13 +2,16 @@ package securepassword
 
 import (
 	"bufio"
+	"context"
 	"crypto/sha1" //#nosec: G505 // HIBP uses shortened SHA1 to query hashes of vulnerable passwordss
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
-
-	"github.com/pkg/errors"
+	"time"
 )
+
+const hibpTimeout = 2 * time.Second
 
 // ErrPasswordInBreach signals the password passed was found in any
 // breach at least once. The password should not be used if this
@@ -27,11 +30,19 @@ func CheckHIBPPasswordHash(password string) error {
 	fullHash := fmt.Sprintf("%x", sha1.Sum([]byte(password))) //#nosec: G401 // See crypto/sha1 import
 	checkHash := fullHash[0:5]
 
-	resp, err := http.Get("https://api.pwnedpasswords.com/range/" + checkHash)
+	ctx, cancel := context.WithTimeout(context.TODO(), hibpTimeout)
+	defer cancel()
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("https://api.pwnedpasswords.com/range/%s", checkHash), nil)
 	if err != nil {
-		return errors.Wrap(err, "HTTP request failed")
+		return fmt.Errorf("creating HTTP request: %w", err)
 	}
-	defer resp.Body.Close()
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return fmt.Errorf("executing HTTP request: %w", err)
+	}
+	defer resp.Body.Close() //nolint:errcheck
 
 	// Response format:
 	// 0018A45C4D1DEF81644B54AB7F969B88D65:1

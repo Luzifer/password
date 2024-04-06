@@ -1,37 +1,38 @@
 package securepassword
 
 import (
-	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestInsecurePasswords(t *testing.T) {
 	passwords := map[string]string{
-		`8452028337962356`: "Password with only numeric characters was accepted.",
-		`adfgjadrgdagasdf`: "Password with only lowercase characters was accepted.",
-		`ASEFSTDHQAEGFADF`: "Password with only uppercase characters was accepted.",
-		`135fach74nc94bd6`: "Password without uppercase characters was accepted.",
-		`235JGOA0YTVKS46S`: "Password without lowercase characters was accepted.",
-		`sdgAFfgADTSgafoa`: "Password without numeric characters was accepted",
+		`8452028337962356`: "password with only numeric characters was accepted",
+		`adfgjadrgdagasdf`: "password with only lowercase characters was accepted",
+		`ASEFSTDHQAEGFADF`: "password with only uppercase characters was accepted",
+		`135fach74nc94bd6`: "password without uppercase characters was accepted",
+		`235JGOA0YTVKS46S`: "password without lowercase characters was accepted",
+		`sdgAFfgADTSgafoa`: "password without numeric characters was accepte",
 
-		`cKTn5mQXfasdS6qy`: "Password with pattern asd was accepted.",
-		`cKTn5mQXfdsaS6qy`: "Password with pattern dsa was accepted.",
-		`cKTn5mQXf345S6qy`: "Password with pattern 345 was accepted.",
-		`cKTn5mQXf987S6qy`: "Password with pattern 987 was accepted.",
-		`cKTn5mQXfabcS6qy`: "Password with pattern abc was accepted.",
-		`cKTn5mQXfcbaS6qy`: "Password with pattern cba was accepted.",
-		`cKTn5mQXfABCS6qy`: "Password with pattern ABC was accepted.",
-		`cKTn5mQXfONMS6qy`: "Password with pattern ONM was accepted.",
+		`cKTn5mQXfasdS6qy`: "password with pattern asd was accepted",
+		`cKTn5mQXfdsaS6qy`: "password with pattern dsa was accepted",
+		`cKTn5mQXf345S6qy`: "password with pattern 345 was accepted",
+		`cKTn5mQXf987S6qy`: "password with pattern 987 was accepted",
+		`cKTn5mQXfabcS6qy`: "password with pattern abc was accepted",
+		`cKTn5mQXfcbaS6qy`: "password with pattern cba was accepted",
+		`cKTn5mQXfABCS6qy`: "password with pattern ABC was accepted",
+		`cKTn5mQXfONMS6qy`: "password with pattern ONM was accepted",
 
-		`Gncj5zzK29Dvx92h`: "Password with character repetition was accepted",
-		`Gncj5%%K29Dvx92h`: "Password with character repetition was accepted",
-		`Gncj55%K29Dvx92h`: "Password with character repetition was accepted",
+		`Gncj5zzK29Dvx92h`: "password with character repetition was accepted",
+		`Gncj5%%K29Dvx92h`: "password with character repetition was accepted",
+		`Gncj55%K29Dvx92h`: "password with character repetition was accepted",
 	}
 
+	sp := NewSecurePassword()
 	for password, errorMessage := range passwords {
-		if NewSecurePassword().CheckPasswordSecurity(password, false) {
-			t.Error(errorMessage)
-		}
+		assert.False(t, sp.CheckPasswordSecurity(password, false), errorMessage)
 	}
 }
 
@@ -44,10 +45,9 @@ func TestSecurePasswords(t *testing.T) {
 		`7bWc9C1ciL62h5u26Z9g`,
 	}
 
+	sp := NewSecurePassword()
 	for _, password := range passwords {
-		if !NewSecurePassword().CheckPasswordSecurity(password, false) {
-			t.Errorf("Password was rejected: %s", password)
-		}
+		assert.True(t, sp.CheckPasswordSecurity(password, false), "password was rejected: %s", password)
 	}
 }
 
@@ -60,10 +60,9 @@ func TestPasswordWithoutSpecialCharaterFail(t *testing.T) {
 		`7bWc9C1ciL62h5u26Z9g`,
 	}
 
+	sp := NewSecurePassword()
 	for _, password := range passwords {
-		if NewSecurePassword().CheckPasswordSecurity(password, true) {
-			t.Errorf("Password was accepted: %s", password)
-		}
+		assert.False(t, sp.CheckPasswordSecurity(password, true), "password was accepted: %s", password)
 	}
 }
 
@@ -76,121 +75,127 @@ func TestSecurePasswordWithSpecialCharacter(t *testing.T) {
 		`9dk#:@xjPd_m$:F"}>Cj`,
 	}
 
+	sp := NewSecurePassword()
 	for _, password := range passwords {
-		if !NewSecurePassword().CheckPasswordSecurity(password, true) {
-			t.Errorf("Password was rejected: %s", password)
-		}
+		assert.True(t, sp.CheckPasswordSecurity(password, true), "password was rejected: %s", password)
 	}
 }
 
 func TestPasswordGeneration(t *testing.T) {
-	password, _ := NewSecurePassword().GeneratePassword(20, false)
+	sp := NewSecurePassword()
+	password, err := sp.GeneratePassword(20, false)
+	require.NoError(t, err)
 
-	if len(password) != 20 {
-		t.Error("Password did not match requested length")
-	}
+	assert.Len(t, password, 20)
+	assert.True(t, sp.CheckPasswordSecurity(password, false))
+	assert.False(t, sp.CheckPasswordSecurity(password, true))
 
-	if !NewSecurePassword().CheckPasswordSecurity(password, false) {
-		t.Error("Password did not pass security test")
-	}
+	password, err = NewSecurePassword().GeneratePassword(32, true)
+	require.NoError(t, err)
 
-	if NewSecurePassword().CheckPasswordSecurity(password, true) {
-		t.Error("Password without special characters passed security test for passwords with special characters")
-	}
-
-	password, _ = NewSecurePassword().GeneratePassword(32, true)
-
-	if len(password) != 32 {
-		t.Error("Password did not match requested length")
-	}
-
-	if !NewSecurePassword().CheckPasswordSecurity(password, false) {
-		t.Error("Password did not pass security test for passwords without special characters")
-	}
-
-	if !NewSecurePassword().CheckPasswordSecurity(password, true) {
-		t.Error("Password without special characters did not security test for passwords with special characters")
-	}
+	assert.Len(t, password, 32)
+	assert.True(t, sp.CheckPasswordSecurity(password, false))
+	assert.True(t, sp.CheckPasswordSecurity(password, true))
 }
 
 func TestImpossiblePasswords(t *testing.T) {
+	sp := NewSecurePassword()
 	for i := 0; i < 4; i++ {
-		_, err := NewSecurePassword().GeneratePassword(i, false)
-		if err != ErrLengthTooLow {
-			t.Errorf("Password with a length of %d did not throw as ErrLengthTooLow error", i)
-		}
+		_, err := sp.GeneratePassword(i, false)
+		assert.ErrorIs(t, err, ErrLengthTooLow)
 	}
 }
 
 func TestBadCharacters(t *testing.T) {
 	badCharacters := []string{"I", "l", "0", "O", "B", "8"}
+	sp := NewSecurePassword()
 
 	for i := 0; i < 500; i++ {
-		pwd, err := NewSecurePassword().GeneratePassword(20, false)
-		if err != nil {
-			t.Errorf("An error occurred: %s", err)
-		}
+		pwd, err := sp.GeneratePassword(20, false)
+		require.NoError(t, err)
+
 		for _, char := range badCharacters {
-			if strings.Contains(pwd, char) {
-				t.Errorf("Password '%s' contained blacklisted character: '%s'", pwd, char)
-				return
-			}
+			assert.NotContains(t, pwd, char)
 		}
 	}
 }
 
 func BenchmarkGeneratePasswords8Char(b *testing.B) {
 	pwd := NewSecurePassword()
+	var err error
+
 	for i := 0; i < b.N; i++ {
-		pwd.GeneratePassword(8, false)
+		_, err = pwd.GeneratePassword(8, false)
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkGeneratePasswords8CharSpecial(b *testing.B) {
 	pwd := NewSecurePassword()
+	var err error
+
 	for i := 0; i < b.N; i++ {
-		pwd.GeneratePassword(8, true)
+		_, err = pwd.GeneratePassword(8, true)
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkGeneratePasswords16Char(b *testing.B) {
 	pwd := NewSecurePassword()
+	var err error
+
 	for i := 0; i < b.N; i++ {
-		pwd.GeneratePassword(16, false)
+		_, err = pwd.GeneratePassword(16, false)
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkGeneratePasswords16CharSpecial(b *testing.B) {
 	pwd := NewSecurePassword()
+	var err error
+
 	for i := 0; i < b.N; i++ {
-		pwd.GeneratePassword(16, true)
+		_, err = pwd.GeneratePassword(16, true)
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkGeneratePasswords32Char(b *testing.B) {
 	pwd := NewSecurePassword()
+	var err error
+
 	for i := 0; i < b.N; i++ {
-		pwd.GeneratePassword(32, false)
+		_, err = pwd.GeneratePassword(32, false)
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkGeneratePasswords32CharSpecial(b *testing.B) {
 	pwd := NewSecurePassword()
+	var err error
+
 	for i := 0; i < b.N; i++ {
-		pwd.GeneratePassword(32, true)
+		_, err = pwd.GeneratePassword(32, true)
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkGeneratePasswords128Char(b *testing.B) {
 	pwd := NewSecurePassword()
+	var err error
+
 	for i := 0; i < b.N; i++ {
-		pwd.GeneratePassword(128, false)
+		_, err = pwd.GeneratePassword(128, false)
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkGeneratePasswords128CharSpecial(b *testing.B) {
 	pwd := NewSecurePassword()
+	var err error
+
 	for i := 0; i < b.N; i++ {
-		pwd.GeneratePassword(128, true)
+		_, err = pwd.GeneratePassword(128, true)
+		require.NoError(b, err)
 	}
 }

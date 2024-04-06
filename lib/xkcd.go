@@ -1,18 +1,24 @@
 package securepassword
 
 import (
+	"errors"
+	"fmt"
 	"strings"
 	"time"
 
-	"github.com/pkg/errors"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 
 	"github.com/Luzifer/go_helpers/v2/str"
 )
 
-type XKCD struct {
-	// Separator to be used between words
-	Separator string
-}
+type (
+	// XKCD represents a XKCD-style password generator
+	XKCD struct {
+		// Separator to be used between words
+		Separator string
+	}
+)
 
 var (
 	// ErrTooFewWords represents an error thrown if the password will
@@ -29,6 +35,8 @@ func NewXKCDGenerator() *XKCD { return &XKCD{} }
 
 // GeneratePassword generates a password with the number of words
 // given and optionally the current date prepended
+//
+//revive:disable-next-line:flag-parameter
 func (x XKCD) GeneratePassword(length int, addDate bool) (string, error) {
 	if length < minPasswordLength {
 		return "", ErrTooFewWords
@@ -46,10 +54,10 @@ func (x XKCD) GeneratePassword(length int, addDate bool) (string, error) {
 	for len(usedWords) < length {
 		widx, err := randIntn(len(xkcdWordList))
 		if err != nil {
-			return "", errors.Wrap(err, "generating random number")
+			return "", fmt.Errorf("generating random number: %w", err)
 		}
 
-		word := strings.Title(xkcdWordList[widx])
+		word := cases.Title(language.AmericanEnglish).String(xkcdWordList[widx])
 		if str.StringInSlice(word, usedWords) {
 			// Don't use a word twice
 			continue

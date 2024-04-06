@@ -1,47 +1,38 @@
+// Package hasher contains methods to generate hashes for a given password
 package hasher
 
 import (
-	"crypto"
-	"crypto/rand"
-	_ "crypto/sha1"
-	_ "crypto/sha256"
-	_ "crypto/sha512"
-
+	"crypto/sha256"
+	"crypto/sha512"
 	"fmt"
-	"math/big"
+	"hash"
 
+	"github.com/GehirnInc/crypt"
+	"github.com/GehirnInc/crypt/apr1_crypt"
+	"github.com/GehirnInc/crypt/sha256_crypt"
+	"github.com/GehirnInc/crypt/sha512_crypt"
 	"golang.org/x/crypto/bcrypt"
-
-	"github.com/tredoe/osutil/user/crypt"
-	_ "github.com/tredoe/osutil/user/crypt/apr1_crypt"
-	_ "github.com/tredoe/osutil/user/crypt/sha256_crypt"
-	_ "github.com/tredoe/osutil/user/crypt/sha512_crypt"
 )
 
 type hasherFunc func(password string) (string, error)
 
-var (
-	implementations = map[string]hasherFunc{
-		"htpasswd_apr1":   implHTAPR1,
-		"htpasswd_bcrypt": implBcrypt,
-		"htpasswd_sha256": implHTSHA256,
-		"htpasswd_sha512": implHTSHA512,
-		"sha1":            implSHA1,
-		"sha256":          implSHA256,
-		"sha512":          implSHA512,
-	}
+var implementations = map[string]hasherFunc{
+	"htpasswd_apr1":   implHTAPR1,
+	"htpasswd_bcrypt": implBcrypt,
+	"htpasswd_sha256": implHTSHA256,
+	"htpasswd_sha512": implHTSHA512,
+	"sha256":          implSHA256,
+	"sha512":          implSHA512,
+}
 
-	saltSet  = []byte(`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./`)
-	saltSize = 12
-)
-
+// GetHashMap generates a map of hashes of the given password
 func GetHashMap(password string) (map[string]string, error) {
 	result := map[string]string{}
 
 	for name, hf := range implementations {
 		h, err := hf(password)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("hashing %s: %w", name, err)
 		}
 
 		result[name] = h
@@ -50,45 +41,34 @@ func GetHashMap(password string) (map[string]string, error) {
 	return result, nil
 }
 
-func getSalt() ([]byte, error) {
-	salt := make([]byte, saltSize)
-	saltSetLength := big.NewInt(int64(len(saltSet)))
-
-	for i := 0; i < saltSize; i++ {
-		pos, err := rand.Int(rand.Reader, saltSetLength)
-		if err != nil {
-			return nil, err
-		}
-		salt[i] = saltSet[pos.Int64()]
+func generic(h hash.Hash, password string) (_ string, err error) {
+	if _, err = h.Write([]byte(password)); err != nil {
+		return "", fmt.Errorf("writing password to hash: %w", err)
 	}
 
-	return salt, nil
+	return fmt.Sprintf("%x", h.Sum(nil)), nil
+}
+
+func genericHT(c crypt.Crypter, password string) (string, error) {
+	h, err := c.Generate([]byte(password), nil) // Salt is auto-generated
+	if err != nil {
+		return "", fmt.Errorf("generating hash: %w", err)
+	}
+
+	return h, nil
 }
 
 func implBcrypt(password string) (string, error) {
 	bc, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	return string(bc), err
-}
-
-func genericHT(password, prefix string) (string, error) {
-	salt, err := getSalt()
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("generating bcrypt hash: %w", err)
 	}
-
-	return crypt.NewFromHash(prefix+string(salt)).Generate([]byte(password), append([]byte(prefix), salt...))
+	return string(bc), nil
 }
 
-func implHTAPR1(password string) (string, error)   { return genericHT(password, "$apr1$") }
-func implHTSHA256(password string) (string, error) { return genericHT(password, "$5$") }
-func implHTSHA512(password string) (string, error) { return genericHT(password, "$6$") }
+func implHTAPR1(password string) (string, error)   { return genericHT(apr1_crypt.New(), password) }
+func implHTSHA256(password string) (string, error) { return genericHT(sha256_crypt.New(), password) }
+func implHTSHA512(password string) (string, error) { return genericHT(sha512_crypt.New(), password) }
 
-func generic(password string, h crypto.Hash) (string, error) {
-	w := h.New()
-	w.Write([]byte(password))
-	return fmt.Sprintf("%x", w.Sum(nil)), nil
-}
-
-func implSHA1(password string) (string, error)   { return generic(password, crypto.SHA1) }
-func implSHA256(password string) (string, error) { return generic(password, crypto.SHA256) }
-func implSHA512(password string) (string, error) { return generic(password, crypto.SHA512) }
+func implSHA256(password string) (string, error) { return generic(sha256.New(), password) }
+func implSHA512(password string) (string, error) { return generic(sha512.New(), password) }

@@ -2,11 +2,10 @@
 package securepassword
 
 import (
+	"errors"
 	"fmt"
 	"regexp"
 	"strings"
-
-	"github.com/pkg/errors"
 )
 
 const minPasswordLength = 4
@@ -50,6 +49,8 @@ func NewSecurePassword() *SecurePassword {
 // optional special characters in it. The password is automatically
 // checked against CheckPasswordSecurity in order to only deliver secure
 // passwords.
+//
+//revive:disable-next-line:flag-parameter
 func (s *SecurePassword) GeneratePassword(length int, special bool) (string, error) {
 	// Sanity check
 	if length < minPasswordLength {
@@ -69,7 +70,7 @@ func (s *SecurePassword) GeneratePassword(length int, special bool) (string, err
 	for {
 		cidx, err := randIntn(len(characterTable))
 		if err != nil {
-			return "", errors.Wrap(err, "generating random number")
+			return "", fmt.Errorf("generating random number: %w", err)
 		}
 
 		char := string(characterTable[cidx])
@@ -119,7 +120,8 @@ func (s *SecurePassword) hasInsecurePattern(password string) bool {
 	return false
 }
 
-func (s *SecurePassword) matchesBasicSecurity(password string, needsSpecialCharacters bool) bool {
+//revive:disable-next-line:flag-parameter
+func (*SecurePassword) matchesBasicSecurity(password string, needsSpecialCharacters bool) bool {
 	bytePassword := []byte(password)
 
 	// Passwords does require numeric characters
@@ -145,7 +147,7 @@ func (s *SecurePassword) matchesBasicSecurity(password string, needsSpecialChara
 	return true
 }
 
-func (s *SecurePassword) hasCharacterRepetition(password string) bool {
+func (*SecurePassword) hasCharacterRepetition(password string) bool {
 	for i := 1; i < len(password); i++ {
 		if password[i-1] == password[i] {
 			return true
