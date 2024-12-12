@@ -1,3 +1,7 @@
+# 2.4.2 / 2024-12-12
+
+  * Update Go dependencies
+
 # 2.4.1 / 2024-12-12
 
   * Update node dependencies
