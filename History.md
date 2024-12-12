@@ -1,3 +1,8 @@
+# 2.4.1 / 2024-12-12
+
+  * Update node dependencies
+  * Update Go dependencies
+
 # 2.4.0 / 2024-04-07
 
   * CI: Replace build-system
