@@ -4,10 +4,10 @@ go 1.22
 
 require (
 	github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5
-	github.com/Luzifer/go_helpers/v2 v2.24.0
+	github.com/Luzifer/go_helpers/v2 v2.25.0
 	github.com/stretchr/testify v1.8.4
-	golang.org/x/crypto v0.22.0
-	golang.org/x/text v0.14.0
+	golang.org/x/crypto v0.31.0
+	golang.org/x/text v0.21.0
 )
 
 require (
