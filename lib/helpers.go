@@ -6,8 +6,8 @@ import (
 	"math/big"
 )
 
-func randIntn(max int) (int, error) {
-	cidx, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
+func randIntn(maxN int) (int, error) {
+	cidx, err := rand.Int(rand.Reader, big.NewInt(int64(maxN)))
 	if err != nil {
 		return 0, fmt.Errorf("generating random number: %w", err)
 	}
