@@ -98,23 +98,24 @@ func getPassword() (string, error) {
 
 ## Benchmark / Test
 
-Tests and benchmark are run by Travis CI at every push to this repository:
+Tests and benchmark are run by Github Actions at every push to this repository:
 
 ```console
-$ go test -bench .
+# go test -bench=. ./...    
 goos: linux
 goarch: amd64
-pkg: github.com/Luzifer/password/lib
-BenchmarkGeneratePasswords8Char-8                  20000             65469 ns/op
-BenchmarkGeneratePasswords8CharSpecial-8           20000             97659 ns/op
-BenchmarkGeneratePasswords16Char-8                 20000             84215 ns/op
-BenchmarkGeneratePasswords16CharSpecial-8          20000             92885 ns/op
-BenchmarkGeneratePasswords32Char-8                 10000            152436 ns/op
-BenchmarkGeneratePasswords32CharSpecial-8          10000            144352 ns/op
-BenchmarkGeneratePasswords128Char-8                 1000           2199011 ns/op
-BenchmarkGeneratePasswords128CharSpecial-8          2000           1089225 ns/op
-BenchmarkGeneratePasswords4Words-8                200000              9472 ns/op
-BenchmarkGeneratePasswords20Words-8               100000             14098 ns/op
+pkg: github.com/Luzifer/password/lib/v2
+cpu: AMD Ryzen 9 7950X 16-Core Processor            
+BenchmarkGeneratePasswords8Char-32                113706              9946 ns/op
+BenchmarkGeneratePasswords8CharSpecial-32          78422             14886 ns/op
+BenchmarkGeneratePasswords16Char-32                68236             17104 ns/op
+BenchmarkGeneratePasswords16CharSpecial-32         64616             20329 ns/op
+BenchmarkGeneratePasswords32Char-32                26655             46330 ns/op
+BenchmarkGeneratePasswords32CharSpecial-32         30051             40588 ns/op
+BenchmarkGeneratePasswords128Char-32                1119           1144492 ns/op
+BenchmarkGeneratePasswords128CharSpecial-32         2860            494610 ns/op
+BenchmarkGeneratePasswords4Words-32               421377              2435 ns/op
+BenchmarkGeneratePasswords20Words-32               97959             11978 ns/op
 PASS
-ok      github.com/Luzifer/password/lib 21.624s
+ok      github.com/Luzifer/password/lib/v2      13.962s
 ```
