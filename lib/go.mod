@@ -1,0 +1,16 @@
+module github.com/Luzifer/password/v2/lib
+
+go 1.24.4
+
+require (
+	github.com/Luzifer/go_helpers/v2 v2.25.0
+	github.com/stretchr/testify v1.10.0
+	golang.org/x/text v0.27.0
+)
+
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/kr/pretty v0.3.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
