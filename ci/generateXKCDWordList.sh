@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-version="19af63af"
+version="1fd1d53"
 source="https://raw.githubusercontent.com/leonardr/olipy/${version}/olipy/data/corpora-olipy/words/scribblenauts.json"
 
 words=$(curl -sL "${source}" | jq -r '.nouns | .[]' | sort | awk '/^[a-z]{4}[a-z]*$/{ print "\""$1"\"," }')
