@@ -12,7 +12,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            Settings
+            {{ $t('menuSettings') }}
           </h5>
           <button
             type="button"
@@ -25,7 +25,7 @@
             <label
               for="passwordLengthOption"
               class="control-label"
-            >Password length:</label>
+            >{{ $t('settings.labelPasswordLength') }}</label>
             <input
               id="passwordLengthOption"
               v-model.number="settings.passwordLength"
@@ -44,7 +44,7 @@
                 type="checkbox"
                 class="form-check-input"
               >
-              <label class="form-check-label">Use special characters</label>
+              <label class="form-check-label">{{ $t('settings.labelUseSpecial') }}</label>
             </div>
           </div>
           <div class="mb-3">
@@ -56,11 +56,11 @@
                 class="form-check-input"
               >
               <label class="form-check-label">
-                Use <a
+                {{ $t('settings.labelXKCD.pre') }} <a
                   href="https://xkcd.com/936/"
                   target="_blank"
                   rel="noopener noreferrer"
-                >XKCD style passwords</a>
+                >{{ $t('settings.labelXKCD.link') }}</a>
               </label>
             </div>
           </div>
@@ -68,7 +68,7 @@
             <label
               for="xkcdSeparator"
               class="control-label"
-            >Separator for XKCD passwords:</label>
+            >{{ $t('settings.labelXKCDSeparator') }}</label>
             <input
               id="xkcdSeparator"
               v-model="settings.xkcdSeparator"
@@ -84,7 +84,7 @@
             class="btn btn-default"
             @click="$emit('hide')"
           >
-            Close
+            {{ $t('settings.btnClose') }}
           </button>
           <button
             id="optionSave"
@@ -92,7 +92,7 @@
             class="btn btn-primary"
             @click="saveSettings"
           >
-            Save changes
+            {{ $t('settings.btnSave') }}
           </button>
         </div>
       </div>

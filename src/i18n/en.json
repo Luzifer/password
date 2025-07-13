@@ -1,0 +1,35 @@
+{
+  "appTitle": "Secure Password",
+  "menuAPIDocs": "API Documentation",
+  "menuSettings": "Settings",
+  "lead": "I will generate a new secure password every {refreshRate} seconds. Just click the password to keep the current one.",
+  "faq": {
+    "title": "FAQ",
+    "store": {
+      "title": "Do you store my password?",
+      "content": "You decide which one to take and we will not store any of the generated passwords. That way you can be sure only you know which password you chose."
+    },
+    "secure": {
+      "title": "How secure are these passwords?",
+      "content": "All passwords are checked against a set of rules to ensure they does not contain patterns which would make it easy for programs to guess the password."
+    },
+    "opensource": {
+      "title": "Can I read the source code?",
+      "content": {
+        "pre": "Of course you can. It's published on",
+        "post": "together with a test suite to ensure the passwords are safe."
+      }
+    }
+  },
+  "settings": {
+    "labelPasswordLength": "Password length:",
+    "labelUseSpecial": "Use special characters",
+    "labelXKCD": {
+      "pre": "Use",
+      "link": "XKCD style passwords"
+    },
+    "labelXKCDSeparator": "Separator for XKCD passwords:",
+    "btnClose": "Close",
+    "btnSave": "Save changes"
+  }
+}

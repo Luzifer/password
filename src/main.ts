@@ -3,6 +3,8 @@ import '@fortawesome/fontawesome-free/css/all.css' // All FA free icons
 
 import { createApp, h } from 'vue'
 
+import i18n from './i18n'
+
 import App from './app.vue'
 
 const app = createApp({
@@ -13,4 +15,5 @@ const app = createApp({
   },
 })
 
+app.use(i18n)
 app.mount('#app')

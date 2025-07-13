@@ -5,7 +5,7 @@
         <a
           class="navbar-brand"
           href="#"
-        >Secure Password</a>
+        >{{ $t('appTitle') }}</a>
 
         <button
           class="navbar-toggler"
@@ -28,7 +28,7 @@
               <a
                 class="nav-link"
                 href="https://github.com/Luzifer/password#via-api"
-              >API Documentation</a>
+              >{{ $t('menuAPIDocs') }}</a>
             </li>
           </ul>
 
@@ -42,7 +42,7 @@
                 <i
                   class="fas fa-cog"
                   aria-hidden="true"
-                /> Settings
+                /> {{ $t('menuSettings') }}
               </button>
             </li>
           </ul>
@@ -55,7 +55,7 @@
         <div class="col-xs-12 col-sm-8 col-md-6">
           <div class="p-5 mb-4 bg-body-tertiary rounded-3">
             <p class="fs-5 m-0 text-center fw-light">
-              I will generate a new secure password every {{ refreshRate }} seconds. Just click the password to keep the current one.
+              {{ $t('lead', {refreshRate}) }}
             </p>
           </div>
 
@@ -88,21 +88,23 @@
 
           <div class="card">
             <div class="card-header">
-              FAQ
+              {{ $t('faq.title') }}
             </div>
             <div class="card-body">
               <ul>
                 <li>
-                  <strong>Do you store my password?</strong><br>
-                  You decide which one to take and we will not store any of the generated passwords. That way you can be sure only you know which password you chose.
+                  <strong>{{ $t('faq.store.title') }}</strong><br>
+                  {{ $t('faq.store.content') }}
                 </li>
                 <li>
-                  <strong>How secure are these passwords?</strong><br>
-                  All passwords are checked against a set of rules to ensure they does not contain patterns which would make it easy for programs to guess the password.
+                  <strong>{{ $t('faq.secure.title') }}</strong><br>
+                  {{ $t('faq.secure.content') }}
                 </li>
                 <li>
-                  <strong>Can I read the source code?</strong><br>
-                  Of course you can. It's published on <a href="https://github.com/Luzifer/password">GitHub</a> together with a test suite to ensure the passwords are safe.
+                  <strong>{{ $t('faq.opensource.title') }}</strong><br>
+                  {{ $t('faq.opensource.content.pre') }}
+                  <a href="https://github.com/Luzifer/password">GitHub</a>
+                  {{ $t('faq.opensource.content.post') }}
                 </li>
               </ul>
             </div>
