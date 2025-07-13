@@ -1,7 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/Luzifer/password)](https://goreportcard.com/report/github.com/Luzifer/password)
-![](https://badges.fyi/github/license/Luzifer/password)
-![](https://badges.fyi/github/downloads/Luzifer/password)
-![](https://badges.fyi/github/latest-release/Luzifer/password)
+![GitHub License](https://img.shields.io/github/license/Luzifer/password)
+![GitHub Release](https://img.shields.io/github/v/release/Luzifer/password)
+
 
 # Luzifer / password
 
@@ -99,8 +99,6 @@ func getPassword() (string, error) {
 ## Benchmark / Test
 
 Tests and benchmark are run by Travis CI at every push to this repository:
-
-[![Build Status](https://travis-ci.org/Luzifer/password.svg)](https://travis-ci.org/Luzifer/password)
 
 ```console
 $ go test -bench .
