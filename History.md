@@ -1,3 +1,10 @@
+# 2.5.0 / 2025-07-13
+
+  * feat: update dependencies, port to Bootstrap 5 and Vue 3
+  * feat: make lib an independent module
+  * feat: add localization for interface
+  * feat: add docker publishing to GHCR
+
 # 2.4.2 / 2024-12-12
 
   * Update Go dependencies
