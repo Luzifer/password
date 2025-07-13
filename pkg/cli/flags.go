@@ -1,4 +1,4 @@
-package main
+package cli
 
 var flags = struct {
 	CLI struct {

@@ -1,5 +1,4 @@
-cmd/password/.build
-cmd/password/frontend/assets/*
-cmd/password/password
-dist
-js/node_modules/*
+pkg/cli/frontend/assets/*
+!pkg/cli/frontend/assets/.keep
+node_modules
+password

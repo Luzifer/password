@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"encoding/json"
@@ -7,8 +7,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Luzifer/password/v2/hasher"
-	pwd "github.com/Luzifer/password/v2/lib"
+	pwd "github.com/Luzifer/password/lib/v2"
+	"github.com/Luzifer/password/v2/pkg/hasher"
 )
 
 const (

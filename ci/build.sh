@@ -57,7 +57,7 @@ rm -rf "${builddir}"
 mkdir -p "${builddir}"
 
 log "Building Tool..."
-go_package_all "password" "./cmd/password"
+go_package_all "password" "."
 
 log "Generating SHA256SUMS file..."
 (cd "${builddir}" && sha256sum * | tee SHA256SUMS)

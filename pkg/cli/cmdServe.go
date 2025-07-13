@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"embed"
@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 
 	http_helper "github.com/Luzifer/go_helpers/v2/http"
-	pwd "github.com/Luzifer/password/v2/lib"
+	pwd "github.com/Luzifer/password/lib/v2"
 )
 
 const defaultHTTPListenPort = 3000
@@ -39,6 +39,7 @@ func actionCmdServe(cmd *cobra.Command, args []string) {
 	r.HandleFunc("/", handleFrontend).Methods("GET")
 	r.PathPrefix("/assets").HandlerFunc(http_helper.GzipFunc(handleAssets)).Methods("GET")
 	r.HandleFunc("/v1/getPassword", handleAPIGetPasswordv1).Methods("GET")
+	r.HandleFunc("/v1/healthz", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusOK) })
 
 	http.Handle("/", r)
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", flags.Server.Port), nil); err != nil {

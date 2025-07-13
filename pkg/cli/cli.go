@@ -1,10 +1,10 @@
-package main
+package cli
 
 import "github.com/spf13/cobra"
 
 var version = "dev"
 
-func main() {
+func Execute() {
 	rootCmd := cobra.Command{
 		Use:   "password",
 		Short: "generates secure random passwords",

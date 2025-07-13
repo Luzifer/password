@@ -89,7 +89,7 @@ $ curl https://passwd.fyi/v1/getPassword?length=20&special=true
 ```go
 package main
 
-import pwd "github.com/Luzifer/password/v2/lib"
+import pwd "github.com/Luzifer/password/lib/v2"
 
 func getPassword() (string, error) {
 	return pwd.NewSecurePassword().GeneratePassword(16, false)

@@ -1,12 +1,21 @@
 default:
 
-compile_js: js/node_modules
-	cd js && node build.mjs
+build:
+	go build -ldflags "-X main.version=$(git describe --tags --always || echo dev)"
 
-js/node_modules:
-	cd js && npm ci
+frontend_prod: export NODE_ENV=production
+frontend_prod: frontend
 
-publish: compile_js
+frontend: node_modules
+	corepack yarn@1 node ci/build.mjs
+
+frontend_lint: node_modules
+	corepack yarn@1 eslint --fix src
+
+node_modules:
+	corepack yarn@1 install --production=false --frozen-lockfile
+
+publish: frontend
 	bash ci/build.sh
 
 trivy:
