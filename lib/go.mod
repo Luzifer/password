@@ -1,4 +1,4 @@
-module github.com/Luzifer/password/v2/lib
+module github.com/Luzifer/password/lib/v2
 
 go 1.24.4
 
