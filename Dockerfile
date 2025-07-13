@@ -8,10 +8,10 @@ RUN set -ex \
       build-base \
       git \
       nodejs-current \
- && make compile_js
+ && make frontend_prod
 
 RUN set -ex \
- && go install -ldflags "-X main.version=$(git describe --tags || git rev-parse --short HEAD || echo dev)"
+ && go install -ldflags "-X github.com/Luzifer/password/v2/pkg/cli.version=$(git describe --tags --exclude 'lib/*' --always || git rev-parse --short HEAD || echo dev)"
 
 
 FROM alpine:3.22

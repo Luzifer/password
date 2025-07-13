@@ -1,7 +1,12 @@
 package main
 
-import "github.com/Luzifer/password/v2/pkg/cli"
+import (
+	"github.com/Luzifer/password/v2/pkg/cli"
+	"github.com/sirupsen/logrus"
+)
 
 func main() {
-	cli.Execute()
+	if err := cli.Execute(); err != nil {
+		logrus.WithError(err).Fatal("running application")
+	}
 }

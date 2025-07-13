@@ -8,9 +8,11 @@ import (
 	"net/http"
 	"path"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
 	http_helper "github.com/Luzifer/go_helpers/v2/http"
@@ -26,7 +28,7 @@ func getCmdServe() *cobra.Command {
 	cmd := cobra.Command{
 		Use:   "serve",
 		Short: "start an API server to request passwords",
-		Run:   actionCmdServe,
+		RunE:  actionCmdServe,
 	}
 
 	cmd.Flags().IntVar(&flags.Server.Port, "port", defaultHTTPListenPort, "port to listen on")
@@ -34,17 +36,24 @@ func getCmdServe() *cobra.Command {
 	return &cmd
 }
 
-func actionCmdServe(cmd *cobra.Command, args []string) {
+func actionCmdServe(_ *cobra.Command, _ []string) error {
 	r := mux.NewRouter()
 	r.HandleFunc("/", handleFrontend).Methods("GET")
 	r.PathPrefix("/assets").HandlerFunc(http_helper.GzipFunc(handleAssets)).Methods("GET")
 	r.HandleFunc("/v1/getPassword", handleAPIGetPasswordv1).Methods("GET")
 	r.HandleFunc("/v1/healthz", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusOK) })
 
-	http.Handle("/", r)
-	if err := http.ListenAndServe(fmt.Sprintf(":%d", flags.Server.Port), nil); err != nil {
-		log.Fatalf("listening on port :%d: %s", flags.Server.Port, err)
+	server := &http.Server{
+		Addr:              fmt.Sprintf(":%d", flags.Server.Port),
+		Handler:           r,
+		ReadHeaderTimeout: time.Second,
 	}
+
+	if err := server.ListenAndServe(); err != nil {
+		return fmt.Errorf("listening for HTTP on port %d: %w", flags.Server.Port, err)
+	}
+
+	return nil
 }
 
 func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
@@ -79,10 +88,12 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 
 	res.Header().Add("Content-Type", "text/plain")
 	res.Header().Add("Cache-Control", "no-cache")
-	res.Write([]byte(password))
+	if _, err = res.Write([]byte(password)); err != nil {
+		logrus.WithError(err).Error("writing password")
+	}
 }
 
-func handleFrontend(res http.ResponseWriter, r *http.Request) {
+func handleFrontend(res http.ResponseWriter, _ *http.Request) {
 	res.Header().Add("Content-Type", "text/html")
 	buf, err := frontend.ReadFile("frontend/index.html")
 	if err != nil {
@@ -90,7 +101,9 @@ func handleFrontend(res http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-	res.Write(buf)
+	if _, err = res.Write(buf); err != nil {
+		logrus.WithError(err).Error("writing frontend buffer")
+	}
 }
 
 func handleAssets(res http.ResponseWriter, r *http.Request) {
@@ -101,5 +114,7 @@ func handleAssets(res http.ResponseWriter, r *http.Request) {
 	}
 
 	res.Header().Set("Content-Type", mime.TypeByExtension(path.Ext(r.URL.Path)))
-	res.Write(buf)
+	if _, err = res.Write(buf); err != nil {
+		logrus.WithError(err).Error("writing assets buffer")
+	}
 }

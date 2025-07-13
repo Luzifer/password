@@ -4,7 +4,8 @@ import "github.com/spf13/cobra"
 
 var version = "dev"
 
-func Execute() {
+// Execute is the main entrypoint for the CLI execution
+func Execute() error {
 	rootCmd := cobra.Command{
 		Use:   "password",
 		Short: "generates secure random passwords",
@@ -16,5 +17,5 @@ func Execute() {
 		getCmdVersion(),
 	)
 
-	rootCmd.Execute()
+	return rootCmd.Execute() //nolint:wrapcheck
 }

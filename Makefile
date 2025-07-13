@@ -1,7 +1,7 @@
 default:
 
 build:
-	go build -ldflags "-X main.version=$(git describe --tags --always || echo dev)"
+	go build -ldflags "-X github.com/Luzifer/password/v2/pkg/cli.version=$(shell git describe --tags --exclude 'lib/*' --always || echo dev)"
 
 frontend_prod: export NODE_ENV=production
 frontend_prod: frontend
