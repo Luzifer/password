@@ -5,7 +5,7 @@ go 1.24.4
 require (
 	github.com/Luzifer/go_helpers/v2 v2.25.0
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/text v0.27.0
+	golang.org/x/text v0.28.0
 )
 
 require (
