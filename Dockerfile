@@ -1,4 +1,4 @@
-FROM golang:1.25-alpine@sha256:7fe17a60f87e85c7996c52baae5e49b193ea2b42009c8dedc07ff2de42e384dc AS builder
+FROM golang:1.25-alpine@sha256:2ad042dec672e85d9e631feb0d2d72db86fd2a4e0cf8daaf2c19771a26df1062 AS builder
 
 COPY . /src/github.com/Luzifer/password
 WORKDIR /src/github.com/Luzifer/password
