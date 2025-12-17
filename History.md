@@ -1,3 +1,13 @@
+# 2.5.1 / 2025-12-17
+
+  * fix(deps): update dependency bootstrap to v5.3.8
+  * fix(deps): update dependency vue-i18n to v11.2.2
+  * fix(deps): update dependency vue to v3.5.25
+  * fix(deps): update module github.com/spf13/cobra to v1.10.2
+  * fix(deps): update module github.com/stretchr/testify to v1.11.1
+  * fix(deps): update module golang.org/x/crypto to v0.46.0
+  * fix(deps): update module golang.org/x/text to v0.32.0
+
 # 2.5.0 / 2025-07-13
 
   * feat: update dependencies, port to Bootstrap 5 and Vue 3
