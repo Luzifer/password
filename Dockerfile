@@ -14,7 +14,7 @@ RUN set -ex \
  && go install -ldflags "-X github.com/Luzifer/password/v2/pkg/cli.version=$(git describe --tags --exclude 'lib/*' --always || git rev-parse --short HEAD || echo dev)"
 
 
-FROM alpine:3.23@sha256:51183f2cfa6320055da30872f211093f9ff1d3cf06f39a0bdb212314c5dc7375
+FROM alpine:3.23@sha256:865b95f46d98cf867a156fe4a135ad3fe50d2056aa3f25ed31662dff6da4eb62
 
 LABEL org.opencontainers.image.authors="Knut Ahlers <knut@ahlers.me>" \
       org.opencontainers.image.documentation="https://github.com/Luzifer/password"
