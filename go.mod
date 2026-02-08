@@ -4,7 +4,7 @@ go 1.24.4
 
 require (
 	github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5
-	github.com/Luzifer/go_helpers/v2 v2.25.0
+	github.com/Luzifer/go_helpers/v2 v2.25.2
 	github.com/Luzifer/password/lib/v2 v2.4.3
 	github.com/gorilla/mux v1.8.1
 	github.com/pkg/errors v0.9.1

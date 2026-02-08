@@ -3,7 +3,7 @@ module github.com/Luzifer/password/lib/v2
 go 1.24.4
 
 require (
-	github.com/Luzifer/go_helpers/v2 v2.25.0
+	github.com/Luzifer/go_helpers/v2 v2.25.2
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/text v0.33.0
 )

@@ -1,7 +1,7 @@
 github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5 h1:IEjq88XO4PuBDcvmjQJcQGg+w+UaafSy8G5Kcb5tBhI=
 github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5/go.mod h1:exZ0C/1emQJAw5tHOaUDyY1ycttqBAPcxuzf7QbY6ec=
-github.com/Luzifer/go_helpers/v2 v2.25.0 h1:k1J4gd1+BfuokTDoWgcgib9P5mdadjzKEgbtKSVe46k=
-github.com/Luzifer/go_helpers/v2 v2.25.0/go.mod h1:KSVUdAJAav5cWGyB5oKGxmC27HrKULVTOxwPS/Kr+pc=
+github.com/Luzifer/go_helpers/v2 v2.25.2 h1:+Jep9wcaUQiTYAfrbUpAuGsKhcCd/+s7NdU7HPNwJos=
+github.com/Luzifer/go_helpers/v2 v2.25.2/go.mod h1:paTKeBe4OheFvMUfuzX5Wzt+piacG4rz96rOGciJu44=
 github.com/Luzifer/password/lib/v2 v2.4.3 h1:RcFiVxq8IxRB4JTlzgX8vIIBDNgD62J6GHk2QSBWa08=
 github.com/Luzifer/password/lib/v2 v2.4.3/go.mod h1:VWu5c6aYWswUXMvag6rPFh7jIwcb45xsYN9Uwm08F/I=
 github.com/cpuguy83/go-md2man/v2 v2.0.6/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
