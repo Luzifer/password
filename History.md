@@ -1,3 +1,12 @@
+# 2.5.2 / 2026-02-20
+
+  * fix(deps): update dependency vue-i18n to v11.2.8
+  * fix(deps): update dependency vue to v3.5.28
+  * fix(deps): update module github.com/sirupsen/logrus to v1.9.4
+  * fix(deps): update module golang.org/x/crypto to v0.48.0
+  * fix(deps): update module golang.org/x/text to v0.34.0
+  * chore: replace go\_helpers/v2 monolith; fix false-positives
+
 # 2.5.1 / 2025-12-17
 
   * fix(deps): update dependency bootstrap to v5.3.8
