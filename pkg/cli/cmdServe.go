@@ -15,7 +15,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	http_helper "github.com/Luzifer/go_helpers/v2/http"
+	http_helper "github.com/Luzifer/go_helpers/http"
 	pwd "github.com/Luzifer/password/lib/v2"
 )
 

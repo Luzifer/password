@@ -3,13 +3,12 @@ package securepassword
 import (
 	"errors"
 	"fmt"
+	"slices"
 	"strings"
 	"time"
 
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
-
-	"github.com/Luzifer/go_helpers/v2/str"
 )
 
 type (
@@ -58,7 +57,7 @@ func (x XKCD) GeneratePassword(length int, addDate bool) (string, error) {
 		}
 
 		word := cases.Title(language.AmericanEnglish).String(xkcdWordList[widx])
-		if str.StringInSlice(word, usedWords) {
+		if slices.Contains(usedWords, word) {
 			// Don't use a word twice
 			continue
 		}

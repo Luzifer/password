@@ -1,10 +1,10 @@
 module github.com/Luzifer/password/v2
 
-go 1.24.4
+go 1.25.7
 
 require (
 	github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5
-	github.com/Luzifer/go_helpers/v2 v2.25.2
+	github.com/Luzifer/go_helpers/http v0.12.2
 	github.com/Luzifer/password/lib/v2 v2.4.3
 	github.com/gorilla/mux v1.8.1
 	github.com/pkg/errors v0.9.1
@@ -15,6 +15,9 @@ require (
 )
 
 require (
+	github.com/Luzifer/go_helpers/accesslogger v0.1.1 // indirect
+	github.com/Luzifer/go_helpers/str v0.4.1 // indirect
+	github.com/Luzifer/go_helpers/v2 v2.25.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect

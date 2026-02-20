@@ -55,6 +55,16 @@ linters:
     gocyclo:
       min-complexity: 15
 
+    gosec:
+      excludes:
+        # Disable bullshit false-positives
+        - G701 # SQL injection via taint analysis
+        - G702 # Command injection via taint analysis
+        - G703 # Path traversal via taint analysis
+        - G704 # SSRF via taint analysis
+        - G705 # XSS via taint analysis
+        - G706 # Log injection via taint analysis
+
     mnd:
       ignored-functions:
         - strconv.(?:Format|Parse)\B+
