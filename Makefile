@@ -7,13 +7,13 @@ frontend_prod: export NODE_ENV=production
 frontend_prod: frontend
 
 frontend: node_modules
-	corepack yarn@1 node ci/build.mjs
+	pnpm node ci/build.mjs
 
 frontend_lint: node_modules
-	corepack yarn@1 eslint --fix src
+	pnpm eslint --fix src
 
 node_modules:
-	corepack yarn@1 install --production=false --frozen-lockfile
+	pnpm install --frozen-lockfile
 
 publish: frontend
 	bash ci/build.sh

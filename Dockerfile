@@ -1,7 +1,9 @@
 FROM golang:1.26-alpine@sha256:c2a1f7b2095d046ae14b286b18413a05bb82c9bca9b25fe7ff5efef0f0826166 AS builder
 
-COPY . /src/github.com/Luzifer/password
-WORKDIR /src/github.com/Luzifer/password
+COPY --from=ghcr.io/luzifer-docker/pnpm:v10.33.0@sha256:37421bf6d0c9bb40c8fc3471b2ed1f2e7947b4668692713c7db8877feb840d8a . /
+
+COPY . /src/password
+WORKDIR /src/password
 
 RUN set -ex \
  && apk add --no-cache \
@@ -28,7 +30,6 @@ COPY --from=builder /go/bin/password /usr/local/bin/password
 
 EXPOSE 3000
 
-ENTRYPOINT ["/usr/local/bin/password"]
-CMD ["--"]
+USER 1000:1000
 
-# vim: set ft=Dockerfile:
+ENTRYPOINT ["/usr/local/bin/password"]
