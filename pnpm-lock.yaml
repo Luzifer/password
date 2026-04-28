@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fortawesome/fontawesome-free':
-        specifier: 6.7.2
-        version: 6.7.2
+        specifier: 7.2.0
+        version: 7.2.0
       bootstrap:
         specifier: 5.3.8
         version: 5.3.8(@popperjs/core@2.11.8)
@@ -278,8 +278,8 @@ packages:
     resolution: {integrity: sha512-rZAP3aVgB9ds9KOeUSL+zZ21hPmo8dh6fnIFwRQj5EAZl9gzR7wxYbYXYysAM8CTqGmUGyp2S4kUdV17MnGuWQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@fortawesome/fontawesome-free@6.7.2':
-    resolution: {integrity: sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==}
+  '@fortawesome/fontawesome-free@7.2.0':
+    resolution: {integrity: sha512-3DguDv/oUE+7vjMeTSOjCSG+KeawgVQOHrKRnvUuqYh1mfArrh7s+s8hXW3e4RerBA1+Wh+hBqf8sJNpqNrBWg==}
     engines: {node: '>=6'}
 
   '@humanfs/core@0.19.1':
@@ -1223,7 +1223,7 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@fortawesome/fontawesome-free@6.7.2': {}
+  '@fortawesome/fontawesome-free@7.2.0': {}
 
   '@humanfs/core@0.19.1': {}
 
