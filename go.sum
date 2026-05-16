@@ -1,9 +1,9 @@
 github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5 h1:IEjq88XO4PuBDcvmjQJcQGg+w+UaafSy8G5Kcb5tBhI=
 github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5/go.mod h1:exZ0C/1emQJAw5tHOaUDyY1ycttqBAPcxuzf7QbY6ec=
-github.com/Luzifer/go_helpers/accesslogger v0.1.1 h1:z9tg/Sd508g5OR1rG2kmzvM1zgg1JGyMYWuWWCvkPyA=
-github.com/Luzifer/go_helpers/accesslogger v0.1.1/go.mod h1:x4K138iYEIhpVAjoxuXyTTzKiZLJEu4Lu8DX+zeDUzw=
-github.com/Luzifer/go_helpers/http v0.12.4 h1:x61Njbbpugq+fHZbloc5g5LtQ6pbOrIPeWdOqR1AnHA=
-github.com/Luzifer/go_helpers/http v0.12.4/go.mod h1:+oUm+JPQRjjockMjbKHqFNWj6dwY8iGnlYNUHE+NpdU=
+github.com/Luzifer/go_helpers/accesslogger v0.1.2 h1:iDzSeFPrRIPmvWTERBkJuXIn2I9d64AVWT99Y8ZLJ28=
+github.com/Luzifer/go_helpers/accesslogger v0.1.2/go.mod h1:x4K138iYEIhpVAjoxuXyTTzKiZLJEu4Lu8DX+zeDUzw=
+github.com/Luzifer/go_helpers/http v0.12.5 h1:p4ZASYiiI6z5eTWzdW/5vq7502zI4psJl7Hv2XD2kaQ=
+github.com/Luzifer/go_helpers/http v0.12.5/go.mod h1:pydx7ol0KMRCRD3tth6DTLkjY/Lf+RByT48zgjbRmck=
 github.com/Luzifer/go_helpers/v2 v2.25.2 h1:+Jep9wcaUQiTYAfrbUpAuGsKhcCd/+s7NdU7HPNwJos=
 github.com/Luzifer/go_helpers/v2 v2.25.2/go.mod h1:paTKeBe4OheFvMUfuzX5Wzt+piacG4rz96rOGciJu44=
 github.com/Luzifer/password/lib/v2 v2.4.3 h1:RcFiVxq8IxRB4JTlzgX8vIIBDNgD62J6GHk2QSBWa08=
