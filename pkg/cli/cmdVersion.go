@@ -18,5 +18,5 @@ func getCmdVersion() *cobra.Command {
 }
 
 func actionCmdVersion(_ *cobra.Command, _ []string) {
-	fmt.Printf("password version %s\n", version) //nolint:forbidigo
+	fmt.Printf("password version %s\n", version) //nolint:forbidigo // printing version is fine
 }

@@ -3,7 +3,7 @@ package securepassword
 import (
 	"bufio"
 	"context"
-	"crypto/sha1" //#nosec: G505 // HIBP uses shortened SHA1 to query hashes of vulnerable passwordss
+	"crypto/sha1" //#nosec:G505 // HIBP uses shortened SHA1 to query hashes of vulnerable passwordss
 	"errors"
 	"fmt"
 	"net/http"
@@ -11,7 +11,10 @@ import (
 	"time"
 )
 
-const hibpTimeout = 2 * time.Second
+const (
+	hibpHashLen = 5
+	hibpTimeout = 2 * time.Second
+)
 
 // ErrPasswordInBreach signals the password passed was found in any
 // breach at least once. The password should not be used if this
@@ -26,9 +29,9 @@ var ErrPasswordInBreach = errors.New("given password is known to HaveIBeenPwned"
 // hash was not returned in the API output.
 //
 // See more details at https://haveibeenpwned.com/API/v2#PwnedPasswords
-func CheckHIBPPasswordHash(password string) error {
-	fullHash := fmt.Sprintf("%x", sha1.Sum([]byte(password))) //#nosec: G401 // See crypto/sha1 import
-	checkHash := fullHash[0:5]
+func CheckHIBPPasswordHash(password string) (err error) {
+	fullHash := fmt.Sprintf("%x", sha1.Sum([]byte(password))) //#nosec:G401 // See crypto/sha1 import
+	checkHash := fullHash[:hibpHashLen]
 
 	ctx, cancel := context.WithTimeout(context.TODO(), hibpTimeout)
 	defer cancel()
@@ -42,7 +45,11 @@ func CheckHIBPPasswordHash(password string) error {
 	if err != nil {
 		return fmt.Errorf("executing HTTP request: %w", err)
 	}
-	defer resp.Body.Close() //nolint:errcheck
+	defer func() {
+		if closeErr := resp.Body.Close(); closeErr != nil && err == nil {
+			err = fmt.Errorf("closing response body: %w", closeErr)
+		}
+	}()
 
 	// Response format:
 	// 0018A45C4D1DEF81644B54AB7F969B88D65:1

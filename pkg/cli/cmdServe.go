@@ -10,16 +10,19 @@ import (
 	"strconv"
 	"time"
 
+	httphelper "github.com/Luzifer/go_helpers/http"
+	pwd "github.com/Luzifer/password/lib/v2"
 	"github.com/gorilla/mux"
-	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-
-	http_helper "github.com/Luzifer/go_helpers/http"
-	pwd "github.com/Luzifer/password/lib/v2"
 )
 
-const defaultHTTPListenPort = 3000
+const (
+	defaultHTTPListenPort = 3000
+
+	maxPasswordLength = 128
+	minPasswordLength = 4
+)
 
 //go:embed frontend/**
 var frontend embed.FS
@@ -39,7 +42,7 @@ func getCmdServe() *cobra.Command {
 func actionCmdServe(_ *cobra.Command, _ []string) error {
 	r := mux.NewRouter()
 	r.HandleFunc("/", handleFrontend).Methods("GET")
-	r.PathPrefix("/assets").HandlerFunc(http_helper.GzipFunc(handleAssets)).Methods("GET")
+	r.PathPrefix("/assets").HandlerFunc(httphelper.GzipFunc(handleAssets)).Methods("GET")
 	r.HandleFunc("/v1/getPassword", handleAPIGetPasswordv1).Methods("GET")
 	r.HandleFunc("/v1/healthz", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusOK) })
 
@@ -59,7 +62,7 @@ func actionCmdServe(_ *cobra.Command, _ []string) error {
 func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 	length, err := strconv.Atoi(r.URL.Query().Get("length"))
 	if err != nil {
-		length = 20
+		length = defaultPasswordLength
 	}
 
 	special := r.URL.Query().Get("special") == "true"
@@ -67,8 +70,8 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 	prependDate := r.URL.Query().Get("date") != "false"
 	xkcdSeparator := r.URL.Query().Get("separator")
 
-	if length > 128 || length < 4 {
-		http.Error(res, "Please do not use length with more than 128 or fewer than 4 characters!", http.StatusNotAcceptable)
+	if length > maxPasswordLength || length < minPasswordLength {
+		http.Error(res, fmt.Sprintf("Please do not use length with more than %d or fewer than %d characters!", maxPasswordLength, minPasswordLength), http.StatusNotAcceptable)
 		return
 	}
 
@@ -82,7 +85,7 @@ func handleAPIGetPasswordv1(res http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
-		http.Error(res, errors.Wrap(err, "generating password").Error(), http.StatusInternalServerError)
+		http.Error(res, fmt.Errorf("generating password: %w", err).Error(), http.StatusInternalServerError)
 		return
 	}
 

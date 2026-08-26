@@ -27,7 +27,7 @@ var implementations = map[string]hasherFunc{
 
 // GetHashMap generates a map of hashes of the given password
 func GetHashMap(password string) (map[string]string, error) {
-	result := map[string]string{}
+	result := make(map[string]string)
 
 	for name, hf := range implementations {
 		h, err := hf(password)
@@ -66,9 +66,12 @@ func implBcrypt(password string) (string, error) {
 	return string(bc), nil
 }
 
-func implHTAPR1(password string) (string, error)   { return genericHT(apr1_crypt.New(), password) }
+func implHTAPR1(password string) (string, error) { return genericHT(apr1_crypt.New(), password) }
+
 func implHTSHA256(password string) (string, error) { return genericHT(sha256_crypt.New(), password) }
+
 func implHTSHA512(password string) (string, error) { return genericHT(sha512_crypt.New(), password) }
 
 func implSHA256(password string) (string, error) { return generic(sha256.New(), password) }
+
 func implSHA512(password string) (string, error) { return generic(sha512.New(), password) }

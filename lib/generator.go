@@ -8,7 +8,10 @@ import (
 	"strings"
 )
 
-const minPasswordLength = 4
+const (
+	minPasswordLength  = 4
+	checkPatternLength = 3
+)
 
 // SecurePassword provides methods for generating secure passwords and
 // checking the security requirements of passwords
@@ -45,12 +48,24 @@ func NewSecurePassword() *SecurePassword {
 	}
 }
 
+// CheckPasswordSecurity executes three checks to ensure the passwords
+// meet the security considerations in this package:
+//
+// 1. The password may not contain pattern found on the keyboard or in alphabet
+// 2. The password must have 3 or 4 different character groups in it
+// 3. The password may not have repeating characters
+func (s *SecurePassword) CheckPasswordSecurity(password string, needsSpecialCharacters bool) bool {
+	return !s.hasInsecurePattern(password) &&
+		s.matchesBasicSecurity(password, needsSpecialCharacters) &&
+		!s.hasCharacterRepetition(password)
+}
+
 // GeneratePassword generates a new password with a given length and
 // optional special characters in it. The password is automatically
 // checked against CheckPasswordSecurity in order to only deliver secure
 // passwords.
 //
-//revive:disable-next-line:flag-parameter
+//revive:disable-next-line:flag-parameter // just enables a group of runes to include
 func (s *SecurePassword) GeneratePassword(length int, special bool) (string, error) {
 	// Sanity check
 	if length < minPasswordLength {
@@ -92,21 +107,18 @@ func (s *SecurePassword) GeneratePassword(length int, special bool) (string, err
 	return password, nil
 }
 
-// CheckPasswordSecurity executes three checks to ensure the passwords
-// meet the security considerations in this package:
-//
-// 1. The password may not contain pattern found on the keyboard or in alphabet
-// 2. The password must have 3 or 4 different character groups in it
-// 3. The password may not have repeating characters
-func (s *SecurePassword) CheckPasswordSecurity(password string, needsSpecialCharacters bool) bool {
-	return !s.hasInsecurePattern(password) &&
-		s.matchesBasicSecurity(password, needsSpecialCharacters) &&
-		!s.hasCharacterRepetition(password)
+func (*SecurePassword) hasCharacterRepetition(password string) bool {
+	for i := 1; i < len(password); i++ {
+		if password[i-1] == password[i] {
+			return true
+		}
+	}
+	return false
 }
 
 func (s *SecurePassword) hasInsecurePattern(password string) bool {
-	for i := 0; i < len(password)-3; i++ {
-		slice := password[i : i+3] // Extract an 3 char slice to check
+	for i := 0; i < len(password)-checkPatternLength; i++ {
+		slice := password[i : i+checkPatternLength] // Extract an 3 char slice to check
 		for _, pattern := range s.insecurePattern {
 			if strings.Contains(pattern, slice) {
 				return true
@@ -120,7 +132,7 @@ func (s *SecurePassword) hasInsecurePattern(password string) bool {
 	return false
 }
 
-//revive:disable-next-line:flag-parameter
+//revive:disable-next-line:flag-parameter // just enables requirement of special chars
 func (*SecurePassword) matchesBasicSecurity(password string, needsSpecialCharacters bool) bool {
 	bytePassword := []byte(password)
 
@@ -145,13 +157,4 @@ func (*SecurePassword) matchesBasicSecurity(password string, needsSpecialCharact
 	}
 
 	return true
-}
-
-func (*SecurePassword) hasCharacterRepetition(password string) bool {
-	for i := 1; i < len(password); i++ {
-		if password[i-1] == password[i] {
-			return true
-		}
-	}
-	return false
 }

@@ -100,7 +100,7 @@ func TestPasswordGeneration(t *testing.T) {
 
 func TestImpossiblePasswords(t *testing.T) {
 	sp := NewSecurePassword()
-	for i := 0; i < 4; i++ {
+	for i := range 4 {
 		_, err := sp.GeneratePassword(i, false)
 		assert.ErrorIs(t, err, ErrLengthTooLow)
 	}
@@ -110,7 +110,7 @@ func TestBadCharacters(t *testing.T) {
 	badCharacters := []string{"I", "l", "0", "O", "B", "8"}
 	sp := NewSecurePassword()
 
-	for i := 0; i < 500; i++ {
+	for range 500 {
 		pwd, err := sp.GeneratePassword(20, false)
 		require.NoError(t, err)
 

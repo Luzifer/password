@@ -1,3 +1,4 @@
+// Package cli provides the command-line interface for password generation.
 package cli
 
 import "github.com/spf13/cobra"
@@ -17,5 +18,5 @@ func Execute() error {
 		getCmdVersion(),
 	)
 
-	return rootCmd.Execute() //nolint:wrapcheck
+	return rootCmd.Execute() //nolint:wrapcheck // no need to wrap, makes things ugly
 }

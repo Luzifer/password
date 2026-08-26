@@ -1,8 +1,10 @@
+// Password-Generator Util
 package main
 
 import (
-	"github.com/Luzifer/password/v2/pkg/cli"
 	"github.com/sirupsen/logrus"
+
+	"github.com/Luzifer/password/v2/pkg/cli"
 )
 
 func main() {

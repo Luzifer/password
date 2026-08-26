@@ -35,7 +35,7 @@ func NewXKCDGenerator() *XKCD { return &XKCD{} }
 // GeneratePassword generates a password with the number of words
 // given and optionally the current date prepended
 //
-//revive:disable-next-line:flag-parameter
+//revive:disable-next-line:flag-parameter // just enables date-prefix
 func (x XKCD) GeneratePassword(length int, addDate bool) (string, error) {
 	if length < minPasswordLength {
 		return "", ErrTooFewWords

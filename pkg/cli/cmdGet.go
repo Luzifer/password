@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
+	pwd "github.com/Luzifer/password/lib/v2"
 	"github.com/spf13/cobra"
 
-	pwd "github.com/Luzifer/password/lib/v2"
 	"github.com/Luzifer/password/v2/pkg/hasher"
 )
 
@@ -74,7 +74,7 @@ func actionCmdGet(cmd *cobra.Command, _ []string) error {
 		}
 
 		if !flags.CLI.JSON {
-			fmt.Println(password) //nolint:forbidigo
+			fmt.Println(password) //nolint:forbidigo // password shall be printed to stdout
 			continue
 		}
 
