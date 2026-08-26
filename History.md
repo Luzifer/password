@@ -1,3 +1,15 @@
+# 2.5.3 / 2026-08-26
+
+  * chore(sec): update transitive node dependencies
+  * fix(deps): update dependency @fortawesome/fontawesome-free to v7.3.1 (#260)
+  * fix(deps): update dependency vue-i18n to v11.4.9 (#298)
+  * fix(deps): update dependency vue to v3.5.41 (#281)
+  * fix(deps): update module github.com/luzifer/go_helpers/http to v0.12.5 (#196)
+  * fix(deps): update module github.com/sirupsen/logrus to v1.10.1 (#295)
+  * fix(deps): update module github.com/stretchr/testify to v1.12.1 (#294)
+  * fix(deps): update module golang.org/x/crypto to v0.55.0 (#287)
+  * fix(deps): update module golang.org/x/text to v0.41.0 (#288)
+
 # 2.5.2 / 2026-02-20
 
   * fix(deps): update dependency vue-i18n to v11.2.8
