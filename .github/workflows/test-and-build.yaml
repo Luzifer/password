@@ -1,5 +1,5 @@
----
 name: test-and-build
+
 on:
   push:
     branches: ['*']
