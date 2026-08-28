@@ -7,7 +7,7 @@ require (
 	github.com/Luzifer/go_helpers/http v0.12.5
 	github.com/Luzifer/password/lib/v2 v2.4.4
 	github.com/gorilla/mux v1.8.1
-	github.com/sirupsen/logrus v1.10.1
+	github.com/sirupsen/logrus v1.10.2
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.12.1
 	golang.org/x/crypto v0.55.0
