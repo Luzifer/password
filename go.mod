@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5
 	github.com/Luzifer/go_helpers/http v0.12.10
-	github.com/Luzifer/password/lib/v2 v2.4.4
+	github.com/Luzifer/password/lib/v2 v2.4.5
 	github.com/gorilla/mux v1.8.1
 	github.com/sirupsen/logrus v1.10.2
 	github.com/spf13/cobra v1.10.2
