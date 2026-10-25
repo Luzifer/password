@@ -1,3 +1,14 @@
+# 2.5.4 / 2026-10-25
+
+  * chore(sec): update transitive nodejs dependencies
+  * chore(deps): update github.com/Luzifer/password/lib/v2 to v2.4.5
+  * fix(deps): update dependency vue-i18n to v11.4.16 (#342)
+  * fix(deps): update dependency vue to v3.5.44 (#339)
+  * fix(deps): update module github.com/luzifer/go_helpers/http to v0.12.10 (#317)
+  * fix(deps): update module github.com/sirupsen/logrus to v1.10.2 (#303)
+  * fix(deps): update module golang.org/x/crypto to v0.58.0 (#335)
+  * fix(deps): update module golang.org/x/text to v0.43.0 (#334)
+
 # 2.5.3 / 2026-08-26
 
   * chore(sec): update transitive node dependencies
