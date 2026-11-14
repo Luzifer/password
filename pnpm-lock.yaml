@@ -12,8 +12,8 @@ importers:
         specifier: 7.3.1
         version: 7.3.1
       bootstrap:
-        specifier: 5.3.8
-        version: 5.3.8(@popperjs/core@2.11.8)
+        specifier: 5.3.9
+        version: 5.3.9(@popperjs/core@2.11.8)
       vue:
         specifier: 3.5.45
         version: 3.5.45(typescript@6.0.3)
@@ -553,8 +553,8 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  bootstrap@5.3.8:
-    resolution: {integrity: sha512-HP1SZDqaLDPwsNiqRqi5NcP0SSXciX2s9E+RyqJIIqGo+vJeN5AJVM98CXmW/Wux0nQ5L7jeWUdplCEf0Ee+tg==}
+  bootstrap@5.3.9:
+    resolution: {integrity: sha512-20cU0rcfw8WdxtVbmfU+xT2EjvVTw9Ror/h1Qvd7DXCujRg8OO9mdBCsmTHdJFf3BuadmBNJtgIuUXsBqSkk/w==}
     peerDependencies:
       '@popperjs/core': ^2.11.8
 
@@ -1546,7 +1546,7 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bootstrap@5.3.8(@popperjs/core@2.11.8):
+  bootstrap@5.3.9(@popperjs/core@2.11.8):
     dependencies:
       '@popperjs/core': 2.11.8
 
